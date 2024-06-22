@@ -32,22 +32,62 @@ nav {
   border-radius: 4px;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
   padding: 20px 10px;
+  position: relative;
 }
 
-.nav-links button {
-  background-color: #fff;
-  border: none;
+.nav-links .link {
   color: #141617;
   padding: 0 20px;
 }
 
-.nav-links button:hover {
+.nav-links .link.about {
+  gap: 5px;
+}
+
+.nav-links .link:hover,
+.drop-down li:hover {
   color: #6b9245;
   cursor: pointer;
 }
 
-.nav-links button:active {
+.nav-links .link:active {
   transform: translateY(1px);
+}
+
+.nav-links .link:hover svg {
+  fill: #6b9245;
+}
+
+/* drop down menu  */
+
+ul.drop-down {
+  background-color: #fff;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  left: 89px;
+  list-style: none;
+  opacity: 0;
+  padding: 10px 0;
+  position: absolute;
+  top: 100%;
+  transition: 0.2s;
+  visibility: hidden;
+  width: 200px;
+  z-index: 1;
+}
+
+ul.drop-down.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drop-down li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px 20px;
+}
+
+.drop-down li:last-child {
+  border: none;
 }
 
 /* banners */
