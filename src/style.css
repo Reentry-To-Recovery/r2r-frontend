@@ -14,7 +14,7 @@ body {
   background-color: #ede4db;
   display: flex;
   flex-direction: column;
-  font: normal 1.6rem Inter, Helvetica, Arial, Sans-serif;
+  font: normal 1.6rem/2.6rem Inter, Helvetica, Arial, Sans-serif;
   height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -172,7 +172,7 @@ ul.drop-down.show {
 
 .tagline h1 {
   font-size: 5.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .tagline h2 {
@@ -285,13 +285,13 @@ ul.drop-down.show {
 
 @media only screen and (max-width: 990px) {
   .banner.statistics .inside-banner {
-    grid-template-columns: repeat(2, calc(50% - 40px));
+    gap: 20px;
+    grid-template-columns: repeat(2, calc(50% - 20px));
   }
 }
 
 @media only screen and (max-width: 460px) {
   .banner.statistics .inside-banner {
-    gap: 20px;
     grid-template-columns: repeat(1, calc(100% - 40px));
   }
 }
@@ -301,7 +301,9 @@ ul.drop-down.show {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 6px;
   color: var(--white);
-  padding: 2rem 0;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4rem 0 3.2rem 0;
   text-align: center;
   width: 100%;
 }
@@ -329,6 +331,112 @@ ul.drop-down.show {
   .stat span {
     font-size: 3.6rem;
   }
+}
+
+/* sections  */
+.section {
+  padding: 70px 0;
+}
+
+.inner-section {
+  flex-direction: column;
+  gap: 30px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.inner-section .tree {
+  background: url(../public/images/cropped-Favicon.png) center center/100%;
+  height: 70px;
+  width: 70px;
+}
+
+.inner-section h1 {
+  color: var(--main-color);
+  font-size: 2rem;
+}
+
+/* course titles */
+.course-titles {
+  gap: 50px;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: left;
+  width: 100%;
+}
+
+@media only screen and (max-width: 635px) {
+  .course-titles {
+    gap: 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.course-titles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.course-titles ul li {
+  align-items: center;
+  border-bottom: 1px solid var(--main-color);
+  display: flex;
+  gap: 10px;
+  padding: 12px 0;
+}
+
+/* course icons */
+.course-icon {
+  background-color: var(--main-color);
+  background-size: cover;
+  height: 30px;
+  mask-size: cover;
+  min-width: 30px;
+}
+
+.course-titles ul:nth-child(1) li:nth-child(1) .course-icon {
+  mask-image: url(../public/images/course-icons/health.svg);
+  -webkit-mask-image: url(../public/images/course-icons/health.svg);
+}
+
+.course-titles ul:nth-child(1) li:nth-child(2) .course-icon {
+  mask-image: url(../public/images/course-icons/workforce.svg);
+  -webkit-mask-image: url(../public/images/course-icons/workforce.svg);
+}
+
+.course-titles ul:nth-child(1) li:nth-child(3) .course-icon {
+  mask-image: url(../public/images/course-icons/recovery.svg);
+  -webkit-mask-image: url(../public/images/course-icons/recovery.svg);
+}
+
+.course-titles ul:nth-child(2) li:nth-child(1) .course-icon {
+  mask-image: url(../public/images/course-icons/resume.svg);
+  -webkit-mask-image: url(../public/images/course-icons/resume.svg);
+}
+
+.course-titles ul:nth-child(2) li:nth-child(2) .course-icon {
+  mask-image: url(../public/images/course-icons/finance.svg);
+  -webkit-mask-image: url(../public/images/course-icons/finance.svg);
+}
+
+.course-titles ul:nth-child(2) li:nth-child(3) .course-icon {
+  mask-image: url(../public/images/course-icons/parent.svg);
+  -webkit-mask-image: url(../public/images/course-icons/parent.svg);
+}
+
+.course-titles ul:nth-child(3) li:nth-child(1) .course-icon {
+  mask-image: url(../public/images/course-icons/legal.svg);
+  -webkit-mask-image: url(../public/images/course-icons/legal.svg);
+}
+
+.course-titles ul:nth-child(3) li:nth-child(2) .course-icon {
+  mask-image: url(../public/images/course-icons/study.svg);
+  -webkit-mask-image: url(../public/images/course-icons/study.svg);
+}
+
+.course-titles ul:nth-child(3) li:nth-child(3) .course-icon {
+  mask-image: url(../public/images/course-icons/education.svg);
+  -webkit-mask-image: url(../public/images/course-icons/education.svg);
 }
 
 /* Extra, universal styling */

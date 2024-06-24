@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import Stat from "../../components/Home/Stat";
-import Tagline from "../../components/Home/Tagline";
+import Tagline from "../../components/Home/Header/Tagline";
+import Nav from "../../components/Nav";
+import Statistics from "../../components/Home/StatsBanner/Statistics";
+import Header from "../../components/Home/Header/Header";
 
 export default function Home() {
   const [offsetY, setOffsetY] = useState(0);
-  const [navDropDown, setNavDropDown] = useState(false);
   const handleScroll = () => setOffsetY(window.scrollY);
 
   useEffect(() => {
@@ -14,85 +15,72 @@ export default function Home() {
 
   return (
     <main>
-      <nav className="flex align">
-        <div className="logo" />
+      <Nav useState={useState} />
+      <Header offsetY={offsetY} />
 
-        <div className="nav-links flex">
-          <div className="link">Home</div>
-          <div
-            className="link about flex align"
-            onClick={() => {
-              setNavDropDown(!navDropDown);
-            }}
-          >
-            About
-            <svg height="16px" viewBox="0 0 24 24" width="16px">
-              {navDropDown ? (
-                <path d="M11.2575379,7.75753788 C11.6675884,7.34748737 12.3324116,7.34748737 12.7424621,7.75753788 L18.7424621,13.7575379 C19.1525126,14.1675884 19.1525126,14.8324116 18.7424621,15.2424621 C18.3324116,15.6525126 17.6675884,15.6525126 17.2575379,15.2424621 L12,9.98492424 L6.74246212,15.2424621 C6.33241161,15.6525126 5.66758839,15.6525126 5.25753788,15.2424621 C4.84748737,14.8324116 4.84748737,14.1675884 5.25753788,13.7575379 L11.2575379,7.75753788 L11.2575379,7.75753788 Z" />
-              ) : (
-                <path d="M11.2575379,16.2424621 L5.25753788,10.2424621 C4.84748737,9.83241161 4.84748737,9.16758839 5.25753788,8.75753788 C5.66758839,8.34748737 6.33241161,8.34748737 6.74246212,8.75753788 L12,14.0150758 L17.2575379,8.75753788 C17.6675884,8.34748737 18.3324116,8.34748737 18.7424621,8.75753788 C19.1525126,9.16758839 19.1525126,9.83241161 18.7424621,10.2424621 L12.7424621,16.2424621 C12.3324116,16.6525126 11.6675884,16.6525126 11.2575379,16.2424621 L11.2575379,16.2424621 Z" />
-              )}
-            </svg>
+      <div className="section flex justify">
+        <div className="inner-section flex align">
+          <div className="tree" />
+          <h1>
+            Reentry to Recovery offers exclusive e-content to CPCs and Ctel
+            customers. Our e-content is for the incarcerated, reentry users, and
+            anyone who wants a chance for change.
+          </h1>
+          Reentry to Recovery has consulted on education solutions and career
+          services since 2001. Our specialist’s research and curate content for
+          individuals that is easy and engaging to follow. We are continuously
+          releasing new content. We customize our content to meet the
+          challenging demands of individuals searching for a better way of life.
+          <div className="course-titles grid">
+            <ul>
+              <li>
+                <div className="course-icon" />
+                Health & Wellness
+              </li>
+              <li>
+                <div className="course-icon" />
+                Workforce Integration
+              </li>
+              <li>
+                <div className="course-icon" />
+                Recovery
+              </li>
+            </ul>
+
+            <ul>
+              <li>
+                <div className="course-icon" />
+                Cover Letter & Resume
+              </li>
+              <li>
+                <div className="course-icon" />
+                Personal Finance
+              </li>
+              <li>
+                <div className="course-icon" />
+                Parenting
+              </li>
+            </ul>
+
+            <ul>
+              <li>
+                <div className="course-icon" />
+                Legal Information
+              </li>
+              <li>
+                <div className="course-icon" />
+                GED Study Guides
+              </li>
+              <li>
+                <div className="course-icon" />
+                Education
+              </li>
+            </ul>
           </div>
-          <ul className={`drop-down ${navDropDown ? "show" : ""}`}>
-            <li>Learn More</li>
-            <li>Contact Us</li>
-            <li>Refund Policy</li>
-          </ul>
-          {/* end .link */}
-          <div className="link">Certificate</div>
-          <div className="link">Courses</div>
-        </div>
-        {/* end .nav-links */}
-      </nav>
-      {/* end nav */}
-
-      <header
-        className="banner header grid"
-        style={{
-          backgroundPosition: `center ${offsetY * 0.2}px`,
-        }}
-      >
-        <div
-          className="inside-banner banner-overlay"
-          style={{
-            transform: `scale(${1 + offsetY / 5000})`,
-            marginTop: `${offsetY * -0.1}px`,
-          }}
-        ></div>
-
-        <div
-          className="inside-banner flex align justify"
-          style={{
-            marginTop: `${offsetY * -0.25}px`,
-          }}
-        >
-          <Tagline />
-        </div>
-        {/* end .inside-banner */}
-      </header>
-      {/* end .banner.header */}
-
-      <br />
-      <br />
-
-      <div
-        className="banner statistics grid"
-        style={{ backgroundPosition: `${offsetY * 0.2}px center` }}
-      >
-        <div
-          className="inside-banner banner-overlay"
-          style={{ backgroundPosition: `${offsetY * -0.1}px` }}
-        ></div>
-
-        <div className="inside-banner grid">
-          <Stat number="45000" title="Users Reached" />
-          <Stat number="8625" title="E-Content Reviewed" />
-          <Stat number="200" title="Resources Linked" />
-          <Stat number="400" title="Current Locations" />
         </div>
       </div>
-      {/* end .banner.stats */}
+
+      <Statistics offsetY={offsetY} />
       <br />
       <br />
       <br />
