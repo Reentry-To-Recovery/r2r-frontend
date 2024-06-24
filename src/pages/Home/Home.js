@@ -64,7 +64,7 @@ export default function Home() {
         <div
           className="inside-banner flex align justify"
           style={{
-            marginTop: `${offsetY * -0.2}px`,
+            marginTop: `${offsetY * -0.25}px`,
           }}
         >
           <Tagline />
