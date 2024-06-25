@@ -32,7 +32,7 @@ export default function App() {
         />
         <Route path="/*" element={<NotFound />} />
         <Route path="/privacy" element={<Privacy />} />
-        <Route path="/about" element={<About />} />
+        <Route exact path="/about" element={<About />} />
         <Route path="/certificate" element={<Certificate />} />
       </Routes>
 
