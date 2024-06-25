@@ -1,4 +1,4 @@
-export default function Nav({ useState }) {
+export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
 
   return (
@@ -24,8 +24,20 @@ export default function Nav({ useState }) {
         </div>
         <ul className={`drop-down ${navDropDown ? "show" : ""}`}>
           <li>Learn More</li>
-          <li>Contact Us</li>
-          <li>Refund Policy</li>
+          <li
+            onClick={() => {
+              setShowModal("contact");
+            }}
+          >
+            Contact Us
+          </li>
+          <li
+            onClick={() => {
+              setShowModal("refund");
+            }}
+          >
+            Refund Policy
+          </li>
         </ul>
         {/* end .link */}
         <div className="link">Certificate</div>

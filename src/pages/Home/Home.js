@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import Tagline from "../../components/Home/Header/Tagline";
 import Nav from "../../components/Nav";
 import Statistics from "../../components/Home/StatsBanner/Statistics";
 import Header from "../../components/Home/Header/Header";
 
 export default function Home() {
   const [offsetY, setOffsetY] = useState(0);
+  const [showModal, setShowModal] = useState("");
+
   const handleScroll = () => setOffsetY(window.scrollY);
 
   useEffect(() => {
@@ -15,7 +16,24 @@ export default function Home() {
 
   return (
     <main>
-      <Nav useState={useState} />
+      {showModal === "contact" || showModal === "refund" ? (
+        <div className="modal-bg flex align justify">
+          <div className="modal-container flex align">
+            <div className="modal-text">
+              {showModal === "contact"
+                ? `If you’ve landed on this page, you’re interested in taking the first step. Whether you need Reentry to Recovery or Workforce content, our reentry strategy will guide you toward a more successful career path and provide you with support content along the way.`
+                : showModal === "refund"
+                ? "A refund must be requested within three days of the purchase date."
+                : ""}
+            </div>
+            <button onClick={() => setShowModal("")}>Close</button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+
+      <Nav useState={useState} setShowModal={setShowModal} />
       <Header offsetY={offsetY} />
 
       <div className="section flex justify">
@@ -80,7 +98,28 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="section quote flex justify">
+        <div className="inner-section quote">
+          “CPC has been working with Reentry to Recovery since 2018. Our
+          facilities offer their content to thousands of inmates during their
+          time incarcerated. Now inmates can have access once they are released.
+          CPC believes in recidivism and offers Reentry to Recovery to help
+          inmates look for a better way of life.”
+        </div>
+      </div>
+
       <Statistics offsetY={offsetY} />
+
+      <div className="section quote flex justify">
+        <div className="inner-section quote">
+          "Ctel believes in inmates’ recidivism. We have been offering Reentry
+          to Recovery content since 2019. The content works well for inmates
+          because it covers Reentry, Workforce, Health and Wellness, and
+          relatable job skills content. They offer curated content designed for
+          recidivism. Now our inmates can use this content when they are
+          released."
+        </div>
+      </div>
       <br />
       <br />
       <br />
