@@ -1,8 +1,8 @@
-export default function Nav({ useState, setShowModal }) {
+export default function Nav({ useState, setShowModal, navRef, courseRef }) {
   const [navDropDown, setNavDropDown] = useState(false);
 
   return (
-    <nav className="flex align">
+    <nav ref={navRef} className="flex align">
       <div className="logo" />
 
       <div className="nav-links flex">
@@ -41,7 +41,16 @@ export default function Nav({ useState, setShowModal }) {
         </ul>
         {/* end .link */}
         <div className="link">Certificate</div>
-        <div className="link">Courses</div>
+        <div
+          className="link"
+          onClick={() => {
+            courseRef.current?.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+        >
+          Courses
+        </div>
       </div>
       {/* end .nav-links */}
     </nav>
