@@ -1,8 +1,8 @@
 import Course from "./Course";
 
-export default function CourseShowcase({ showModal, setShowModal, courseRef }) {
+export default function CourseShowcase({ showModal, setShowModal }) {
   return (
-    <div ref={courseRef} className="section flex justify">
+    <div id="courses" className="section flex justify">
       <div className="inner-section courses-showcase grid">
         <Course
           courseName="Recovery"

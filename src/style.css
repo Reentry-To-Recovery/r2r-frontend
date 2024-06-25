@@ -128,6 +128,7 @@ nav {
 .nav-links .link {
   color: #141617;
   padding: 0 20px;
+  text-decoration: none;
 }
 
 .nav-links .link.about {
@@ -200,7 +201,8 @@ ul.drop-down.show {
 }
 
 /* header banner */
-.banner.header {
+.banner.header,
+.banner.not-found {
   animation: fade-in 0.8s;
   background-color: var(--main-color);
   /* min-height: calc(100vw / 2); */
@@ -217,7 +219,8 @@ ul.drop-down.show {
 }
 
 @media only screen and (max-width: 788px) {
-  .banner.header {
+  .banner.header,
+  .banner.not-found {
     min-height: calc(100vh - 297px);
   }
 }
@@ -225,7 +228,12 @@ ul.drop-down.show {
 .banner.header .banner-overlay {
   background-image: url(../public/images/header-banner.png);
   background-repeat: no-repeat;
-  /* background-size: 100%; */
+}
+
+.banner.banner.not-found .banner-overlay {
+  background-image: url(../public/images/not-found.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 @media only screen and (max-width: 900px) {

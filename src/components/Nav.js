@@ -1,12 +1,17 @@
-export default function Nav({ useState, setShowModal, navRef, courseRef }) {
+import { HashLink } from "react-router-hash-link";
+
+export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
 
   return (
-    <nav ref={navRef} className="flex align">
+    <nav id="nav" className="flex align">
       <div className="logo" />
 
       <div className="nav-links flex">
-        <div className="link">Home</div>
+        <HashLink className="link" to="/">
+          Home
+        </HashLink>
+
         <div
           className="link about flex align"
           onClick={() => {
@@ -41,16 +46,9 @@ export default function Nav({ useState, setShowModal, navRef, courseRef }) {
         </ul>
         {/* end .link */}
         <div className="link">Certificate</div>
-        <div
-          className="link"
-          onClick={() => {
-            courseRef.current?.scrollIntoView({
-              behavior: "smooth",
-            });
-          }}
-        >
+        <HashLink className="link" smooth to="/#courses">
           Courses
-        </div>
+        </HashLink>
       </div>
       {/* end .nav-links */}
     </nav>
