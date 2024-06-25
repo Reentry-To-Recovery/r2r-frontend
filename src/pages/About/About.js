@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import GridSection from "../../components/About/GridSection";
 
 export default function About() {
   return (
@@ -26,47 +26,38 @@ export default function About() {
         </p>
 
         <div className="grid three">
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Solutions</strong>
-            Our solutions are customized to meet the challenging demands of
-            today’s marketplace.
-          </div>
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Unique Approach</strong>
-            Reentry to Recovery treats everyone as a unique customer, as we
+          <GridSection
+            title="Solutions"
+            content="Our solutions are customized to meet the challenging demands of
+            today’s marketplace."
+          />
+          <GridSection
+            title="Unique Approach"
+            content="Reentry to Recovery treats everyone as a unique customer, as we
             tailor our reviews, recommendations, content, and action plans
-            accordingly.
-          </div>
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Goal Oriented</strong>
-            With over 35 years in the industry, we strive to provide services
-            that will enable you to attain your desired goals.
-          </div>
-
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Our Mission</strong>
-            To provide the highest level of consulting services and online
-            learning content for those seeking a better way of life.
-          </div>
-
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Our Philosophy</strong>
-            We strive to provide services that will enable individuals to attain
+            accordingly."
+          />
+          <GridSection
+            title="Goal Oriented"
+            content="With over 35 years in the industry, we strive to provide services
+            that will enable you to attain your desired goals."
+          />
+          <GridSection
+            title="Our Mission"
+            content="To provide the highest level of consulting services and online
+            learning content for those seeking a better way of life."
+          />
+          <GridSection
+            title="Our Philosophy"
+            content="We strive to provide services that will enable individuals to attain
             their desired goals. Our goal is to help clients and partners build
-            new possibilities.
-          </div>
-
-          <div className="flex align">
-            <div className="grid-icon" />
-            <strong>Our Promise</strong>
-            To provide the highest level of customer service by striving to
-            create positive experiences for every client, every day.
-          </div>
+            new possibilities."
+          />
+          <GridSection
+            title="Our Promise"
+            content="To provide the highest level of customer service by striving to
+            create positive experiences for every client, every day."
+          />
         </div>
       </div>
     </div>

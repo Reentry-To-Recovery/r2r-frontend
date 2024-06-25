@@ -809,6 +809,7 @@ ul.drop-down.show {
 
 /* footer */
 footer {
+  flex-wrap: wrap;
   gap: 10px;
   padding: 40px;
 }
