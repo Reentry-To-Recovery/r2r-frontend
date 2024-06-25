@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Nav from "../../components/Nav";
 import Statistics from "../../components/Home/StatsBanner/Statistics";
 import Header from "../../components/Home/Header/Header";
+import Quote from "../../components/Home/Quote";
 
 export default function Home() {
   const [offsetY, setOffsetY] = useState(0);
@@ -98,28 +99,72 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="section quote flex justify">
-        <div className="inner-section quote">
-          “CPC has been working with Reentry to Recovery since 2018. Our
-          facilities offer their content to thousands of inmates during their
-          time incarcerated. Now inmates can have access once they are released.
-          CPC believes in recidivism and offers Reentry to Recovery to help
-          inmates look for a better way of life.”
+      <Quote
+        offsetY={offsetY}
+        content={`“CPC has been working with Reentry to Recovery since 2018. Our facilities offer their content to thousands of inmates during their time incarcerated. Now inmates can have access once they are released. CPC believes in recidivism and offers Reentry to Recovery to help inmates look for a better way of life.”`}
+      />
+
+      <div className="section flex justify">
+        <div className="inner-section courses-showcase grid">
+          <div className="course">
+            <div className="course-picture" />
+            Recovery
+          </div>
+
+          <div className="course">
+            <div className="course-picture" />
+            Workforce Integration
+          </div>
+
+          <div className="course">
+            <div className="course-picture" />
+            Health & Wellness
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Personal Finance
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Parenting
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            GED Study Guide
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Legal Information
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Cover Letter & Resume
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Education Study Guide
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Online Education
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Galleries
+          </div>
+          <div className="course">
+            <div className="course-picture" />
+            Helpful Links & Videos
+          </div>
         </div>
       </div>
 
       <Statistics offsetY={offsetY} />
+      <Quote
+        offsetY={offsetY}
+        content={`"Ctel believes in inmates’ recidivism. We have been offering Reentry to Recovery content since 2019. The content works well for inmates because it covers Reentry, Workforce, Health and Wellness, and relatable job skills content. They offer curated content designed for recidivism. Now our inmates can use this content when they are released."`}
+      />
 
-      <div className="section quote flex justify">
-        <div className="inner-section quote">
-          "Ctel believes in inmates’ recidivism. We have been offering Reentry
-          to Recovery content since 2019. The content works well for inmates
-          because it covers Reentry, Workforce, Health and Wellness, and
-          relatable job skills content. They offer curated content designed for
-          recidivism. Now our inmates can use this content when they are
-          released."
-        </div>
-      </div>
       <br />
       <br />
       <br />
