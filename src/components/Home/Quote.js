@@ -1,6 +1,4 @@
-import ScrollAnimation from "react-animate-on-scroll";
-
-export default function Quote({ offsetY, content }) {
+export default function Quote({ offsetY, content, ScrollAnimation }) {
   return (
     <div
       className="section quote flex justify"
@@ -12,6 +10,7 @@ export default function Quote({ offsetY, content }) {
         animateIn="bounceInLeft"
         animateOnce={true}
         duration={0.8}
+        offset={100}
       >
         <div className="inner-section quote">{content}</div>
       </ScrollAnimation>
