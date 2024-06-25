@@ -8,7 +8,7 @@ import App from "./pages/App/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <HashRouter>
+  <Router>
     <App />
-  </HashRouter>
+  </Router>
 );
