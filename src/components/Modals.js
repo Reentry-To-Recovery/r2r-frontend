@@ -7,7 +7,7 @@ export default function Modals({ showModal, setShowModal }) {
         <div className="modal-text">
           <div className="modal-inner-container">
             {showModal === "contact" ? (
-              `If you’ve landed on this page, you’re interested in taking the first step. Whether you need Reentry to Recovery or Workforce content, our reentry strategy will guide you toward a more successful career path and provide you with support content along the way.`
+              `Looks like you’re interested in taking the first step. Whether you need Reentry to Recovery or Workforce content, our reentry strategy will guide you toward a more successful career path and provide you with support content along the way.`
             ) : showModal === "refund" ? (
               "A refund must be requested within three days of the purchase date."
             ) : showModal === "Recovery" ? (
