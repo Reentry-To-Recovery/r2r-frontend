@@ -198,8 +198,8 @@ ul.drop-down.show {
 
 /* banners */
 .banner {
-  background: url(../public/images/banner-bg.png) center center/30%
-    var(--main-color);
+  background: url(../public/images/banner-bg.png) center
+    center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
   grid-template-columns: 1fr;
   overflow: hidden;
   position: relative;
@@ -274,7 +274,7 @@ ul.drop-down.show {
   margin-top: 6px;
   position: relative;
   padding: 20px 0;
-  width: 60vw;
+  width: 50vw;
 }
 
 @keyframes move-up {
@@ -283,6 +283,12 @@ ul.drop-down.show {
   }
   to {
     margin-top: 6px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .tagline {
+    width: 70vw;
   }
 }
 
@@ -501,8 +507,8 @@ ul.drop-down.show {
 
 /* quote sections */
 .section.quote {
-  background: url(../public/images/banner-bg.png) center center/30%
-    var(--main-color);
+  background: url(../public/images/banner-bg.png) center
+    center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
 }
 
 .inner-section.quote {
