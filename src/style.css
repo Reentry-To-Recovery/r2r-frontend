@@ -259,7 +259,7 @@ ul.drop-down.show {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .banner.header .banner-overlay {
     background-image: url(../public/images/header-banner-3.png);
   }
