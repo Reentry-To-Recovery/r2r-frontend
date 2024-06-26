@@ -184,7 +184,7 @@ ul.drop-down.show {
 
 .drop-down li {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 10px 20px;
+  padding: 10px 25px;
 }
 
 .drop-down li a {
@@ -259,7 +259,7 @@ ul.drop-down.show {
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
   .banner.header .banner-overlay {
     background-image: url(../public/images/header-banner-3.png);
   }
