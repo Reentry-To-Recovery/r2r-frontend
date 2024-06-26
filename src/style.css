@@ -97,6 +97,7 @@ nav {
   justify-content: space-between;
   width: 80%;
 }
+
 /* logo */
 .logo {
   background-image: url(../public/images/logo.png);
@@ -133,6 +134,12 @@ nav {
   color: var(--font-color);
   padding: 0 20px;
   text-decoration: none;
+}
+
+@media only screen and (max-width: 460px) {
+  .nav-links .link {
+    padding: 0 10px;
+  }
 }
 
 .nav-links .link.about {
@@ -274,15 +281,15 @@ ul.drop-down.show {
 }
 
 .tagline h1 {
-  font-size: 5.5rem;
-  margin-bottom: 35px;
+  font-size: clamp(1.7rem, 4vw, 5.5rem);
+  line-height: 190%;
 }
 
 .tagline h2 {
-  font-size: 2.4rem;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
   line-height: 150%;
 }
-
+/* 
 @media only screen and (max-width: 1180px) {
   .tagline {
     width: 60vw;
@@ -331,7 +338,7 @@ ul.drop-down.show {
   .tagline h2 {
     font-size: 1.7rem;
   }
-}
+} */
 
 /* tagline buttons */
 .tagline-buttons {
