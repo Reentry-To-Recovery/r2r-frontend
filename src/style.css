@@ -46,7 +46,7 @@ body {
 .modal-container {
   flex-direction: column;
   gap: 20px;
-  width: 60vw;
+  width: 80vw;
 }
 
 .modal-text {
