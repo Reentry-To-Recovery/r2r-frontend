@@ -10,7 +10,7 @@ export default function Quote({ offsetY, content, ScrollAnimation }) {
         animateIn="bounceInLeft"
         animateOnce={true}
         duration={0.8}
-        offset={100}
+        offset={50}
       >
         <div className="inner-section quote">{content}</div>
       </ScrollAnimation>
