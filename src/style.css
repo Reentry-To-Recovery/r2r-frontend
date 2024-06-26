@@ -259,6 +259,12 @@ ul.drop-down.show {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .banner.header .banner-overlay {
+    background-image: url(../public/images/header-banner-3.png);
+  }
+}
+
 /* tagline */
 .tagline {
   animation: move-up 0.8s;
@@ -268,7 +274,7 @@ ul.drop-down.show {
   margin-top: 6px;
   position: relative;
   padding: 20px 0;
-  width: 50vw;
+  width: 60vw;
 }
 
 @keyframes move-up {
@@ -281,12 +287,12 @@ ul.drop-down.show {
 }
 
 .tagline h1 {
-  font-size: clamp(1.7rem, 4vw, 5.5rem);
+  font-size: clamp(1.9rem, 4vw, 5.5rem);
   line-height: 190%;
 }
 
 .tagline h2 {
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 150%;
 }
 /* 
