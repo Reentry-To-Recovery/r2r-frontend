@@ -108,7 +108,7 @@ nav {
   width: calc(400px / 2);
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 940px) {
   .inner-nav {
     flex-direction: column;
     gap: 30px;
@@ -137,7 +137,7 @@ nav {
   text-decoration: none;
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 660px) {
   .nav-links .link {
     padding: 0 10px;
   }
@@ -170,12 +170,18 @@ ul.drop-down {
   left: 89px;
   list-style: none;
   opacity: 0;
-  padding: 10px 0;
+  padding: 0 0 10px 0;
   position: absolute;
   top: 100%;
   visibility: hidden;
   width: 200px;
   z-index: 1;
+}
+
+@media only screen and (max-width: 660px) {
+  ul.drop-down {
+    left: 59px;
+  }
 }
 
 ul.drop-down.show {
@@ -236,10 +242,10 @@ ul.drop-down.show {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 940px) {
   .banner.header,
   .banner.not-found {
-    min-height: calc(100vh - 301px);
+    min-height: calc(100vh - 299px);
   }
 }
 
@@ -252,12 +258,6 @@ ul.drop-down.show {
   background-image: url(../public/images/not-found-1.svg);
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-@media only screen and (max-width: 900px) {
-  .banner.header .banner-overlay {
-    background-image: url(../public/images/header-banner-2.png);
-  }
 }
 
 @media only screen and (max-width: 550px) {
@@ -295,63 +295,14 @@ ul.drop-down.show {
 
 .tagline h1 {
   font-size: clamp(2.1rem, 4vw, 5.5rem);
-  line-height: 190%;
+  /* line-height: 190%; */
+  margin-bottom: 25px;
 }
 
 .tagline h2 {
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 150%;
 }
-/* 
-@media only screen and (max-width: 1180px) {
-  .tagline {
-    width: 60vw;
-  }
-
-  .tagline h1 {
-    font-size: 5rem;
-  }
-}
-
-@media only screen and (max-width: 885px) {
-  .tagline h1 {
-    font-size: 4.5rem;
-  }
-
-  .tagline h2 {
-    font-size: 2.2rem;
-  }
-}
-
-@media only screen and (max-width: 788px) {
-  .tagline h1 {
-    font-size: 4rem;
-    margin-bottom: 30px;
-  }
-}
-
-@media only screen and (max-width: 690px) {
-  .tagline h1 {
-    font-size: 3.5rem;
-  }
-}
-
-@media only screen and (max-width: 580px) {
-  .tagline h1 {
-    font-size: 3.3rem;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  .tagline h1 {
-    font-size: 2.3rem;
-    margin-bottom: 20px;
-  }
-
-  .tagline h2 {
-    font-size: 1.7rem;
-  }
-} */
 
 /* tagline buttons */
 .tagline-buttons {

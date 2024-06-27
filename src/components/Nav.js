@@ -76,6 +76,9 @@ export default function Nav({ useState, setShowModal }) {
           >
             Courses
           </HashLink>
+          <HashLink className="link" to="/dashboard">
+            Students
+          </HashLink>
         </div>
         {/* end .nav-links */}
       </div>
