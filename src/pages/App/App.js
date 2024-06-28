@@ -10,6 +10,7 @@ import About from "../About/About";
 import Breadcrumb from "../../components/Breadcrumb";
 import Certificate from "../Certificate/Certificate";
 import Footer from "../../components/Footer";
+import Dashboard from "../Dashboard/Dashboard";
 
 export default function App() {
   const [showModal, setShowModal] = useState("");
@@ -24,6 +25,7 @@ export default function App() {
       {pathname === "/privacy" && <Breadcrumb pageName="Privacy" />}
       {pathname === "/about" && <Breadcrumb pageName="About" />}
       {pathname === "/certificate" && <Breadcrumb pageName="Certificate" />}
+      {pathname === "/dashboard" && <Breadcrumb pageName="Dashboard" />}
 
       <Routes>
         <Route
@@ -34,6 +36,7 @@ export default function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route exact path="/about" element={<About />} />
         <Route path="/certificate" element={<Certificate />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />
