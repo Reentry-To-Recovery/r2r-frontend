@@ -36,7 +36,12 @@ export default function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route exact path="/about" element={<About />} />
         <Route path="/certificate" element={<Certificate />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard showModal={showModal} setShowModal={setShowModal} />
+          }
+        />
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />

@@ -496,10 +496,15 @@ ul.drop-down.show {
   width: 6px;
 }
 
-/* courses showcase */
+/* courses showcase and dashboard */
 .inner-section.courses-showcase {
   gap: 50px;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.inner-section.courses-showcase.dashboard {
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 @media only screen and (max-width: 1220px) {
@@ -532,6 +537,7 @@ ul.drop-down.show {
   background: url(../public/images/banner-bg.png) center center/100%;
   border-radius: 4px 4px 0 0;
   margin: 0 0 18px 0;
+  position: relative;
 }
 
 @media only screen and (max-width: 650px) {
@@ -604,10 +610,90 @@ ul.drop-down.show {
   background-image: url(../public/images/course-photos/links.svg);
 }
 
-.course:hover,
-.course.active {
+.course-complete-badge {
+  background-image: url(../public/images/certificate-badge.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  bottom: 14px;
+  height: 50px;
+  position: absolute;
+  right: 16px;
+  width: 50px;
+}
+
+.course:not(.dashboard):hover,
+.course:not(.dashboard).active {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.course-data-container {
+  padding: 13px 20px 6px 20px;
+}
+
+.course-data-stats {
+  border-top: 1px solid var(--bg-color);
+  font-size: 1.4rem;
+  font-weight: 500;
+  justify-content: space-between;
+  margin: 4px 0;
+  padding-top: 17px;
+}
+
+.progress-bar {
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  height: 8px;
+  margin-top: 7px;
+}
+
+.progress {
+  border-radius: 4px;
+  height: 100%;
+}
+
+.course:nth-child(odd) .progress {
+  background-color: var(--main-color);
+}
+
+.course:nth-child(even) .progress {
+  background-color: var(--accent-color);
+}
+
+.course-data-container button {
+  background-color: #fff;
+  border-radius: 4px;
+  margin-top: 20px;
+  padding: 5px 0 4px 0;
+  width: 100%;
+}
+
+.course:nth-child(odd) .course-data-container button {
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.course:nth-child(even) .course-data-container button {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.course-data-container button:hover {
+  color: var(--white) !important;
+  cursor: pointer;
+}
+
+.course:nth-child(odd) .course-data-container button:hover {
+  background-color: var(--main-color);
+}
+
+.course:nth-child(even) .course-data-container button:hover {
+  background-color: var(--accent-color);
+}
+
+.course-data-container button:active {
+  transform: translateY(1px);
 }
 
 /* stats banner */
@@ -780,6 +866,7 @@ ul.drop-down.show {
 
 /* footer */
 footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
   gap: 10px;
   padding: 40px;
@@ -815,13 +902,17 @@ footer a:hover {
   flex-direction: column;
 }
 
+.webpage.dashboard {
+  background-color: var(--bg-color);
+}
+
 .inner-webpage {
   padding: 52px 0 31px 0;
   width: 80%;
 }
 
 .inner-webpage h1 {
-  line-height: 150%;
+  line-height: 120%;
   margin-bottom: 20px;
 }
 
