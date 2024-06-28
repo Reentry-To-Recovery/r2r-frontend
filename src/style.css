@@ -649,8 +649,16 @@ ul.drop-down.show {
 }
 
 .progress {
+  animation: progressAnimationStrike 2s;
   border-radius: 4px;
   height: 100%;
+  position: relative;
+}
+
+@keyframes progressAnimationStrike {
+  from {
+    width: 0;
+  }
 }
 
 .course:nth-child(odd) .progress {
@@ -658,6 +666,25 @@ ul.drop-down.show {
 }
 
 .course:nth-child(even) .progress {
+  background-color: var(--accent-color);
+}
+
+.progress::before {
+  border-radius: 99px;
+  content: "";
+  display: block;
+  height: 12px;
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 12px;
+}
+
+.course:nth-child(odd) .progress::before {
+  background-color: var(--main-color);
+}
+
+.course:nth-child(even) .progress::before {
   background-color: var(--accent-color);
 }
 

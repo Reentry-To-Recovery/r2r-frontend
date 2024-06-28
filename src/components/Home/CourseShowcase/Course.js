@@ -1,4 +1,6 @@
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { SpanishContext } from "../../../pages/App/App";
 
 export default function Course({
   courseName,
@@ -8,6 +10,7 @@ export default function Course({
   totalCourses,
 }) {
   const { pathname } = useLocation();
+  const { spanish } = useContext(SpanishContext);
   const percentComplete = (num) => {
     return num?.toFixed(0).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -29,10 +32,8 @@ export default function Course({
       {pathname === "/dashboard" && (
         <div className="course dashboard">
           <div className="course-picture">
-            {completedCourses / totalCourses === 1 ? (
+            {completedCourses / totalCourses === 1 && (
               <div className="course-complete-badge" />
-            ) : (
-              ""
             )}
           </div>
           {courseName}
@@ -44,7 +45,7 @@ export default function Course({
               </div>
               <div>
                 {percentComplete((completedCourses / totalCourses) * 100)}%
-                Complete
+                {spanish ? " Completa" : " Complete"}
               </div>
             </div>
             <div className="progress-bar">
@@ -58,9 +59,13 @@ export default function Course({
               />
             </div>
             {completedCourses / totalCourses === 1 ? (
-              <button>Download Certificate</button>
+              <button>
+                {spanish ? "Enviar certificado" : "Send Certificate"}
+              </button>
             ) : (
-              <button>Continue Learning</button>
+              <button>
+                {spanish ? "Continuar aprendiendo" : "Continue Learning"}
+              </button>
             )}
           </div>
         </div>
