@@ -221,7 +221,7 @@ ul.drop-down.show {
 
 /* make banner overlays stretch across for parallax effect */
 .banner-overlay {
-  background: url("/") repeat center/cover;
+  background: url("/") repeat center center/cover;
 }
 
 /* header banner */
@@ -275,7 +275,8 @@ ul.drop-down.show {
   margin-top: 6px;
   position: relative;
   padding: 20px 0;
-  width: 50vw;
+  /* min-width: 50vw; */
+  max-width: 700px;
 }
 
 @keyframes move-up {
@@ -289,7 +290,7 @@ ul.drop-down.show {
 
 @media only screen and (max-width: 700px) {
   .tagline {
-    width: 60vw;
+    max-width: 60vw;
   }
 }
 
@@ -300,7 +301,7 @@ ul.drop-down.show {
 }
 
 .tagline h2 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   line-height: 150%;
 }
 
@@ -727,11 +728,17 @@ ul.drop-down.show {
 .banner.statistics {
   background-color: var(--accent-color);
   min-height: 395px;
-  padding: 20px 0;
 }
 
 .banner.statistics .banner-overlay {
   background-image: url(../public/images/stats-banner.png);
+  margin: 20px 0;
+}
+
+@media only screen and (min-width: 1820px) {
+  .banner.statistics .banner-overlay {
+    background-size: contain;
+  }
 }
 
 .banner.statistics .inside-banner {

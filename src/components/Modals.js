@@ -1,7 +1,9 @@
 export default function Modals({ showModal, setShowModal }) {
   return (
     <div
-      className={`modal-bg flex align justify ${showModal != "" ? "show" : ""}`}
+      className={`modal-bg flex align justify ${
+        showModal !== "" ? "show" : ""
+      }`}
     >
       <div className="modal-container flex align">
         <div className="modal-text">

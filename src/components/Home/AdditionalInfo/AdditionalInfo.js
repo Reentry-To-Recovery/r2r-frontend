@@ -8,7 +8,7 @@ export default function AdditionalInfo({ ScrollAnimation }) {
           duration={1.2}
           offset={50}
         >
-          <div className="left flex align justify">
+          <div className="left flex">
             <h1>
               Reentry to Recovery offers content for individuals who want a
               chance for change.
