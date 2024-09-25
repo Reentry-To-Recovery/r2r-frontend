@@ -1,6 +1,8 @@
 import { HashLink } from "react-router-hash-link";
+import LoginButton from "./Auth/LoginButton";
+import LogoutButton from "./Auth/LogoutButton";
 
-export default function Nav({ useState, setShowModal }) {
+export default function Nav({ useState, setShowModal, isAuthenticated }) {
   const [navDropDown, setNavDropDown] = useState(false);
 
   return (
@@ -76,9 +78,7 @@ export default function Nav({ useState, setShowModal }) {
           >
             Courses
           </HashLink>
-          <HashLink className="link" to="/dashboard">
-            Students
-          </HashLink>
+          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
         </div>
         {/* end .nav-links */}
       </div>
