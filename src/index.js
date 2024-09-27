@@ -13,9 +13,11 @@ root.render(
     domain="dev-tmrxuwvilohijcnk.us.auth0.com"
     clientId="Mf26NaPLdxuLJ1D0JxJnAfJG9dWikIQ2"
     useRefreshTokens={true}
+    useRefreshTokensFallback
     cacheLocation="localstorage"
     authorizationParams={{
       redirect_uri: window.location.origin,
+      scope: "admin"
     }}
   >
     <Router>

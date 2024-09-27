@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { HashLink } from "react-router-hash-link";
@@ -48,6 +48,7 @@ export default function AdminApp() {
                         }
                     />
                 )}
+                <Route path="/" element={<Navigate to="/admin" replace />} />
             </Routes>
 
             <Footer HashLink={HashLink} setShowModal={setShowModal} />
