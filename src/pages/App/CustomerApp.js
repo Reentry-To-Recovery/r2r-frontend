@@ -13,6 +13,7 @@ import Certificate from "../Certificate/Certificate";
 import Footer from "../../components/Footer";
 import Dashboard from "../Dashboard/Dashboard";
 import Profile from "../../components/Auth/Profile";
+import React from "react";
 
 export default function CustomerApp() {
   const [showModal, setShowModal] = useState("");
@@ -60,7 +61,7 @@ export default function CustomerApp() {
         />
         <Route path="/*" element={<NotFound />} />
         <Route path="/privacy" element={<Privacy />} />
-        <Route exact path="/about" element={<About />} />
+        <Route path="/about" element={<About />} />
         <Route path="/certificate" element={<Certificate />} />
         <Route path="/profile" element={<Profile />} />
 

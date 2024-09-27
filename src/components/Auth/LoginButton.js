@@ -1,8 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { UserRole } from "../../hooks/useUserRole";
+import { useUserRole } from "../../hooks/useUserRole";
 
 export default function LoginButton() {
   const { loginWithRedirect } = useAuth0();
+  const { userRole } = useUserRole();
 
-  return <button onClick={() => { loginWithRedirect(); localStorage.setItem("userRole", UserRole.Admin) }}>Log In</button>;
+  return <button onClick={() => { loginWithRedirect(); localStorage.setItem("userRole", userRole) }}>Log In</button>;
 }
