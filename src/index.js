@@ -16,8 +16,7 @@ root.render(
     useRefreshTokensFallback
     cacheLocation="localstorage"
     authorizationParams={{
-      redirect_uri: window.location.origin,
-      scope: "admin"
+      redirect_uri: window.location.origin
     }}
   >
     <Router>

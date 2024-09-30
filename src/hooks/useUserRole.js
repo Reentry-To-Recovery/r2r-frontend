@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 export const UserRole = {
     Admin: "admin",
-    Customer: "customer"
+    User: "user"
 };
 
 export const useUserRole = () => {
@@ -15,13 +15,17 @@ export const useUserRole = () => {
         if (isAuthenticated) {
 
             const fetchToken = async () => {
-                const tokenResponse = await getAccessTokenSilently();
-                const decodedToken = jwtDecode(tokenResponse);
+                try {
+                    const tokenResponse = await getAccessTokenSilently();
+                    const decodedToken = jwtDecode(tokenResponse);
 
-                if (decodedToken.permissions.includes(UserRole.Admin)) {
-                    setUserRole(UserRole.Admin);
-                } else {
-                    setUserRole(UserRole.Customer);
+                    if (decodedToken["https://r2r-claims.com/roles"].includes(UserRole.Admin)) {
+                        setUserRole(UserRole.Admin);
+                    } else {
+                        setUserRole(UserRole.User);
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
             };
             fetchToken();
@@ -30,7 +34,7 @@ export const useUserRole = () => {
         } else if (localStorage.getItem('userRole') === UserRole.Admin) {
             setUserRole(UserRole.Admin);
         } else {
-            setUserRole(UserRole.Customer);
+            setUserRole(UserRole.User);
         }
     }, [isAuthenticated, getAccessTokenSilently]);
 
