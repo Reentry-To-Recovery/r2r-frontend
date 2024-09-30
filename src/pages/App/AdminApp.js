@@ -6,9 +6,9 @@ import Footer from "../../components/Footer";
 import AdminNav from "../../admin/AdminNav";
 import Modals from "../../components/Modals";
 import Breadcrumb from "../../components/Breadcrumb";
-import React from "react";
 import Privacy from "../Privacy/Privacy";
 import AdminHome from "../../admin/pages/AdminHome";
+import CourseList from "../../admin/pages/courses/CourseList";
 
 export default function AdminApp() {
     const [showModal, setShowModal] = useState("");
@@ -25,6 +25,7 @@ export default function AdminApp() {
 
             <Routes>
                 <Route path="/admin" element={<AdminHome />} />
+                <Route path="/admin/courses" element={<CourseList />} />
                 <Route path="/" element={<Navigate to="/admin" replace />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/*" element={<NotFound />} />

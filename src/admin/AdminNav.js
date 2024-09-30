@@ -15,6 +15,9 @@ export default function AdminNav() {
                     <HashLink className="link" to="/admin">
                         Home
                     </HashLink>
+                    <HashLink className="link" to="/admin/courses">
+                        Courses
+                    </HashLink>
                     {isAuthenticated ? <LogoutButton /> : <LoginButton />}
                 </div>
             </div>
