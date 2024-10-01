@@ -1,7 +1,8 @@
 import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
-import { fetchAdminCourses } from "../../../api/courses";
+import { fetchAdminCourses } from "../../../api/Courses";
 import { Course } from "../../../types/Courses";
+import { useAdminApi } from "../../../hooks/useAdminApi";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -34,6 +35,7 @@ const columns = [
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
+    const { fetchCourses } = useAdminApi();
     const table = useReactTable({
         data: courses,
         columns,
@@ -41,9 +43,9 @@ export default function CourseList() {
     });
 
     useEffect(() => {
-        const fetchCourses = async () => {
+        const fetchAdminCourses = async () => {
             try {
-                const response = await fetchAdminCourses();
+                const response = await fetchCourses();
 
                 setCourses(response.data.courses);
             } catch (e) {
@@ -51,8 +53,8 @@ export default function CourseList() {
             }
         };
 
-        fetchCourses();
-    }, []);
+        fetchAdminCourses();
+    }, [fetchCourses]);
 
     return (
         <div>
