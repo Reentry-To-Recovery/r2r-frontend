@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const fetchAdminCourses = async (token: string) => {
     const response = await axios.get(
-        "http://localhost:5272/admin/courses",
+        `${apiUrl}/admin/courses`,
         {
             headers: {
                 "Authorization": `Bearer ${token}`

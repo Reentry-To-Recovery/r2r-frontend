@@ -53,7 +53,8 @@ body {
 .modal-text {
   background-color: var(--white);
   border-radius: 4px;
-  box-shadow: 1px 1px 100px rgba(0, 0, 0, 0.5);
+
+  -shadow: 1px 1px 100px rgba(0, 0, 0, 0.5);
   padding: 40px;
 }
 
@@ -207,8 +208,7 @@ ul.drop-down.show {
 
 /* banners */
 .banner {
-  background: url(../public/images/banner-bg.png) center
-    center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
+  background: url(../public/images/banner-bg.png) center center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
   grid-template-columns: 1fr;
   overflow: hidden;
   position: relative;
@@ -239,12 +239,14 @@ ul.drop-down.show {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 100;
   }
 }
 
 @media only screen and (max-width: 940px) {
+
   .banner.header,
   .banner.not-found {
     min-height: calc(100vh - 299px);
@@ -285,6 +287,7 @@ ul.drop-down.show {
   from {
     margin-top: 100px;
   }
+
   to {
     margin-top: 6px;
   }
@@ -462,8 +465,7 @@ ul.drop-down.show {
 
 /* quote sections */
 .section.quote {
-  background: url(../public/images/banner-bg.png) center
-    center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
+  background: url(../public/images/banner-bg.png) center center/calc(1561px / 4.5) calc(1031px / 4.5) var(--main-color);
 }
 
 .inner-section.quote {
@@ -1069,4 +1071,29 @@ a {
 
 a:hover {
   color: var(--font-color);
+}
+
+button.addNew {
+  width: fit-content;
+  border: 1px solid var(--main-color);
+  background-color: transparent;
+  color: var(--main-color);
+  margin-bottom: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    background-color: var(--main-color);
+    color: var(--white)
+  }
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: fit-content;
+  max-width: 80%;
+  margin: 32px auto;
 }
