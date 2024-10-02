@@ -1,8 +1,9 @@
 import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
-import { fetchAdminCourses } from "../../../api/Courses";
 import { Course } from "../../../types/Courses";
 import { useAdminApi } from "../../../hooks/useAdminApi";
+import { useNavigate } from "react-router-dom";
+import AddNewButton from "../../../components/Buttons/AddNewButton";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -10,7 +11,7 @@ const columns = [
     columnHelper.accessor(
         row => row.id,
         {
-            header: "ID"
+            header: "Course ID"
         }
     ),
     columnHelper.accessor(
@@ -36,6 +37,7 @@ const columns = [
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
     const { fetchCourses } = useAdminApi();
+    const navigate = useNavigate();
     const table = useReactTable({
         data: courses,
         columns,
@@ -57,36 +59,42 @@ export default function CourseList() {
     }, [fetchCourses]);
 
     return (
-        <div>
-            <table>
-                <thead>
-                    {table.getHeaderGroups().map(headerGroup => (
-                        <tr key={headerGroup.id}>
-                            {headerGroup.headers.map(header => (
-                                <th key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {table.getRowModel().rows.map(row => (
-                        <tr key={row.id}>
-                            {row.getVisibleCells().map(cell => (
-                                <td key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="webpage flex justify">
+            <div className="breadcrumb flex justify">
+                <div className="inner-breadcrumb">Courses</div>
+            </div>
+            <div className="list-view">
+                <AddNewButton />
+                <table>
+                    <thead>
+                        {table.getHeaderGroups().map(headerGroup => (
+                            <tr key={headerGroup.id}>
+                                {headerGroup.headers.map(header => (
+                                    <th key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody>
+                        {table.getRowModel().rows.map(row => (
+                            <tr key={row.id}>
+                                {row.getVisibleCells().map(cell => (
+                                    <td key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,38 @@
+/* table styling */
+table {
+    table-layout: fixed;
+    width: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead {
+    background-color: var(--main-color);
+    color: var(--white);
+}
+
+thead tr th {
+    text-align: left;
+    padding: 9px 20px 9px 10px;
+    font-weight: 400;
+    font-size: 1.1em;
+    text-shadow: 0 1px 0 rgba(25.5, 25.5, 25.5, 0.4);
+}
+
+table>thead>tr>th {
+    border: 1px solid black;
+}
+
+td {
+    padding: 2px 15px 1px 10px;
+    border: 1px solid black;
+}
+
+tbody tr {
+    background-color: var(--white);
+
+    &:hover {
+        background-color: var(--bg-color);
+    }
+}
