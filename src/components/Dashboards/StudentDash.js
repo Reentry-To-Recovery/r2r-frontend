@@ -5,6 +5,7 @@ export default function StudentDash() {
     <>
       <div className="inner-section courses-showcase dashboard grid">
         <Course courseName="Recovery" completedCourses={67} totalCourses={67} />
+
         <Course
           courseName="Workforce Integration"
           completedCourses={60}

@@ -49,7 +49,13 @@ export default function CustomerApp() {
       {pathname === "/privacy" && <Breadcrumb pageName="Privacy" />}
       {pathname === "/about" && <Breadcrumb pageName="About" />}
       {pathname === "/certificate" && <Breadcrumb pageName="Certificate" />}
-      {pathname === "/dashboard" && <Breadcrumb pageName="Dashboard" />}
+      {isAuthenticated && pathname === "/dashboard" && (
+        <Breadcrumb
+          pageName={
+            userRole === "admin" ? "Admin Dashboard" : "Student Dashboard"
+          }
+        />
+      )}
 
       <Routes>
         <Route
@@ -62,14 +68,7 @@ export default function CustomerApp() {
         <Route path="/certificate" element={<Certificate />} />
         <Route path="/profile" element={<Profile />} />
 
-        {isAuthenticated && (
-          <Route
-            path="/dashboard"
-            element={
-              <Dashboard showModal={showModal} setShowModal={setShowModal} />
-            }
-          />
-        )}
+        {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />

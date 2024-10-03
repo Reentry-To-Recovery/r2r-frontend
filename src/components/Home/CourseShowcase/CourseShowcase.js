@@ -2,8 +2,6 @@ import { useLocation } from "react-router-dom";
 import Course from "./Course";
 
 export default function CourseShowcase({ showModal, setShowModal }) {
-  const { pathname } = useLocation();
-
   return (
     <>
       <div id="courses" className="section flex justify">

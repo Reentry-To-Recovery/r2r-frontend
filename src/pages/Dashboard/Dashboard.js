@@ -3,15 +3,13 @@ import { useUserRole, UserRole } from "../../hooks/useUserRole";
 import AdminDash from "../../components/Dashboards/AdminDash";
 import StudentDash from "../../components/Dashboards/StudentDash";
 
-export default function Dashboard({ showModal, setShowModal }) {
+export default function Dashboard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const { userRole } = useUserRole();
 
   return (
     <div className="webpage dashboard flex align">
       <div className="inner-webpage">
-        {/* <CourseShowcase showModal={showModal} setShowModal={setShowModal} /> */}
-
         {isAuthenticated && userRole === "admin" ? (
           <AdminDash />
         ) : (
