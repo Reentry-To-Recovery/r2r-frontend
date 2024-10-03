@@ -1,9 +1,13 @@
 import { HashLink } from "react-router-hash-link";
+import { NavLink } from "react-router-dom";
+
+import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Auth/LoginButton";
 import LogoutButton from "./Auth/LogoutButton";
 
-export default function Nav({ useState, setShowModal, isAuthenticated }) {
+export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <nav id="nav" className="flex justify">
@@ -11,12 +15,19 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
         <div className="logo" />
 
         <div className="nav-links flex">
-          <HashLink className="link" to="/">
+          <NavLink
+            className="link"
+            to="/"
+            onClick={() => {
+              setNavDropDown(false);
+            }}
+          >
             Home
-          </HashLink>
+          </NavLink>
 
-          <div
+          <NavLink
             className="link about flex align"
+            to="/about"
             onClick={() => {
               setNavDropDown(!navDropDown);
             }}
@@ -29,21 +40,11 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
                 <path d="M11.2575379,16.2424621 L5.25753788,10.2424621 C4.84748737,9.83241161 4.84748737,9.16758839 5.25753788,8.75753788 C5.66758839,8.34748737 6.33241161,8.34748737 6.74246212,8.75753788 L12,14.0150758 L17.2575379,8.75753788 C17.6675884,8.34748737 18.3324116,8.34748737 18.7424621,8.75753788 C19.1525126,9.16758839 19.1525126,9.83241161 18.7424621,10.2424621 L12.7424621,16.2424621 C12.3324116,16.6525126 11.6675884,16.6525126 11.2575379,16.2424621 L11.2575379,16.2424621 Z" />
               )}
             </svg>
-          </div>
+          </NavLink>
+
           <ul className={`drop-down ${navDropDown ? "show" : ""}`}>
-            <li>
-              <HashLink
-                onClick={() => {
-                  setNavDropDown(false);
-                }}
-                to="/about"
-              >
-                Learn More
-              </HashLink>
-            </li>
             <li
               onClick={() => {
-                setNavDropDown(false);
                 setShowModal("contact");
               }}
             >
@@ -51,7 +52,6 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
             </li>
             <li
               onClick={() => {
-                setNavDropDown(false);
                 setShowModal("refund");
               }}
             >
@@ -59,7 +59,7 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
             </li>
           </ul>
           {/* end .link */}
-          <HashLink
+          <NavLink
             onClick={() => {
               setNavDropDown(false);
             }}
@@ -67,7 +67,7 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
             to="/certificate"
           >
             Certificate
-          </HashLink>
+          </NavLink>
           <HashLink
             onClick={() => {
               setNavDropDown(false);
@@ -78,7 +78,22 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
           >
             Courses
           </HashLink>
-          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+          {isAuthenticated ? (
+            <>
+              <NavLink
+                className="link"
+                onClick={() => {
+                  setNavDropDown(false);
+                }}
+                to="/dashboard"
+              >
+                Dashboard
+              </NavLink>
+              <LogoutButton />
+            </>
+          ) : (
+            <LoginButton />
+          )}
         </div>
         {/* end .nav-links */}
       </div>
