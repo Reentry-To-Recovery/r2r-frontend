@@ -3,42 +3,45 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
 export const UserRole = {
-    Admin: "admin",
-    User: "user"
+  Admin: "admin",
+  User: "user",
 };
 
 export const useUserRole = () => {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-    const [userRole, setUserRole] = useState();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [userRole, setUserRole] = useState();
 
-    useEffect(() => {
-        if (isAuthenticated) {
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchToken = async () => {
+        try {
+          const tokenResponse = await getAccessTokenSilently();
+          const decodedToken = jwtDecode(tokenResponse);
 
-            const fetchToken = async () => {
-                try {
-                    const tokenResponse = await getAccessTokenSilently();
-                    const decodedToken = jwtDecode(tokenResponse);
-
-                    if (decodedToken["https://r2r-claims.com/roles"].includes(UserRole.Admin)) {
-                        setUserRole(UserRole.Admin);
-                    } else {
-                        setUserRole(UserRole.User);
-                    }
-                } catch (e) {
-                    console.log(e);
-                }
-            };
-            fetchToken();
-        } else if (window.location.href.includes("admin")) {
+          if (
+            decodedToken["https://r2r-claims.com/roles"].includes(
+              UserRole.Admin
+            )
+          ) {
             setUserRole(UserRole.Admin);
-        } else if (localStorage.getItem('userRole') === UserRole.Admin) {
-            setUserRole(UserRole.Admin);
-        } else {
+          } else {
             setUserRole(UserRole.User);
+          }
+        } catch (e) {
+          console.log(e);
         }
-    }, [isAuthenticated, getAccessTokenSilently]);
+      };
+      fetchToken();
+    } else if (window.location.href.includes("admin")) {
+      setUserRole(UserRole.Admin);
+    } else if (localStorage.getItem("userRole") === UserRole.Admin) {
+      setUserRole(UserRole.Admin);
+    } else {
+      setUserRole(UserRole.User);
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
 
-    return {
-        userRole
-    };
+  return {
+    userRole,
+  };
 };

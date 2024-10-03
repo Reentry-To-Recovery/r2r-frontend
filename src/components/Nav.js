@@ -1,9 +1,11 @@
 import { HashLink } from "react-router-hash-link";
+import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Auth/LoginButton";
 import LogoutButton from "./Auth/LogoutButton";
 
-export default function Nav({ useState, setShowModal, isAuthenticated }) {
+export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <nav id="nav" className="flex justify">
@@ -78,7 +80,16 @@ export default function Nav({ useState, setShowModal, isAuthenticated }) {
           >
             Courses
           </HashLink>
-          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+          {isAuthenticated ? (
+            <>
+              <HashLink className="link" smooth to="/dashboard">
+                Dashboard
+              </HashLink>
+              <LogoutButton />
+            </>
+          ) : (
+            <LoginButton />
+          )}
         </div>
         {/* end .nav-links */}
       </div>

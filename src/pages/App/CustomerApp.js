@@ -13,7 +13,6 @@ import Certificate from "../Certificate/Certificate";
 import Footer from "../../components/Footer";
 import Dashboard from "../Dashboard/Dashboard";
 import Profile from "../../components/Auth/Profile";
-import React from "react";
 
 export default function CustomerApp() {
   const [showModal, setShowModal] = useState("");
