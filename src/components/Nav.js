@@ -7,7 +7,7 @@ import LogoutButton from "./Auth/LogoutButton";
 
 export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <nav id="nav" className="flex justify">

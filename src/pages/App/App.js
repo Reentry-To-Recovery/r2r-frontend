@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useState, useEffect, createContext } from "react";
-import { useUserRole, UserRole } from "../../hooks/useUserRole";
+import { useState, useEffect } from "react";
+import { useUserRole } from "../../hooks/useUserRole";
 import { useAuth0 } from "@auth0/auth0-react";
 import { HashLink } from "react-router-hash-link";
 import Home from "../Home/Home";
@@ -15,9 +15,9 @@ import Footer from "../../components/Footer";
 import Dashboard from "../Dashboard/Dashboard";
 import Profile from "../../components/Auth/Profile";
 
-export default function CustomerApp() {
+export default function App() {
   const [showModal, setShowModal] = useState("");
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const { userRole } = useUserRole();
 
   const { pathname } = useLocation();
