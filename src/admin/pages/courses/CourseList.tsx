@@ -1,9 +1,10 @@
 import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
-import { Course } from "../../../types/Courses";
+import { Course, SearchCoursesFilters, SearchCoursesSort } from "../../../types/courses";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";
+import { SearchPayload } from "../../../types/search";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -45,9 +46,16 @@ export default function CourseList() {
     });
 
     useEffect(() => {
+        const payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort> = {
+            offset: 0,
+            limit: 10,
+            sort: null,
+            filters: null
+        };
+
         const fetchAdminCourses = async () => {
             try {
-                const response = await fetchCourses();
+                const response = await fetchCourses(payload);
 
                 setCourses(response.data.courses);
             } catch (e) {
