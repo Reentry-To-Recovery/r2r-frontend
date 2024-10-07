@@ -15,6 +15,6 @@ export interface SearchCoursesFilters {
 }
 
 export interface SearchCoursesSort {
-    field: "title"
+    field: string
     order: SearchOrder
 }

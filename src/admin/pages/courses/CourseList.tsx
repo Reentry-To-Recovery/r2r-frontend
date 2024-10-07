@@ -1,10 +1,11 @@
-import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
+import { ColumnSort, PaginationState, SortingState, createColumnHelper } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
 import { Course, SearchCoursesFilters, SearchCoursesSort } from "../../../types/courses";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";
-import { SearchPayload } from "../../../types/search";
+import { SearchOrder, SearchPayload } from "../../../types/search";
+import Table from "../../components/Table";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -12,44 +13,49 @@ const columns = [
     columnHelper.accessor(
         row => row.id,
         {
-            header: "Course ID"
+            header: "Course ID",
+            enableSorting: false
         }
     ),
     columnHelper.accessor(
         row => row.title,
         {
-            header: "Title"
+            header: "Title",
+            enableSorting: true,
+            sortDescFirst: false,
+            id: "title"
         }
     ),
     columnHelper.accessor(
         row => row.description,
         {
-            header: "Description"
+            header: "Description",
+            enableSorting: false
         }
     ),
     columnHelper.accessor(
         row => row.active,
         {
-            header: "Active"
+            header: "Active",
+            enableSorting: false
         }
     )
 ];
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
+    const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+    const [totalResults, setTotalResults] = useState<number>(0);
+    const [sorting, setSorting] = useState<SortingState>([{ id: "title", desc: false }])
+
     const { fetchCourses } = useAdminApi();
     const navigate = useNavigate();
-    const table = useReactTable({
-        data: courses,
-        columns,
-        getCoreRowModel: getCoreRowModel()
-    });
 
     useEffect(() => {
         const payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort> = {
-            offset: 0,
-            limit: 10,
-            sort: null,
+            offset: pagination.pageIndex * pagination.pageSize,
+            limit: pagination.pageSize,
+            sort: { field: sorting[0].id, order: sorting[0].desc ? SearchOrder.Desc : SearchOrder.Asc },
             filters: null
         };
 
@@ -58,13 +64,14 @@ export default function CourseList() {
                 const response = await fetchCourses(payload);
 
                 setCourses(response.data.courses);
+                setTotalResults(response.meta.totalResults);
             } catch (e) {
                 console.log(e);
             }
         };
 
         fetchAdminCourses();
-    }, [fetchCourses]);
+    }, [fetchCourses, pagination, sorting]);
 
     return (
         <div className="webpage flex justify">
@@ -73,35 +80,15 @@ export default function CourseList() {
             </div>
             <div className="list-view">
                 <AddNewButton />
-                <table>
-                    <thead>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <tr key={headerGroup.id}>
-                                {headerGroup.headers.map(header => (
-                                    <th key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody>
-                        {table.getRowModel().rows.map(row => (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map(cell => (
-                                    <td key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <Table
+                    totalResults={totalResults}
+                    columns={columns}
+                    pagination={pagination}
+                    setPagination={setPagination}
+                    data={courses}
+                    sorting={sorting}
+                    onSortingChange={setSorting}
+                />
             </div>
         </div>
     );
