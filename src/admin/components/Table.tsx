@@ -84,6 +84,9 @@ const Table = <TData,>(props: TableProps<TData>) => {
                         </tr>
                     ))}
                 </tbody>
+                {
+                    totalResults === 0 && <span>No Results</span>
+                }
             </table>
             <div className="flex items-center gap-2">
                 <button
