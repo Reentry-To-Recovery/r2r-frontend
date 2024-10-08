@@ -1092,8 +1092,24 @@ button.addNew {
 .list-view {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: fit-content;
   max-width: 80%;
   margin: 32px auto;
+  row-gap: 32px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  column-gap: 32px;
+}
+
+.search {
+  width: 100%;
+}
+
+.select-filter {
+  width: 100%;
 }
