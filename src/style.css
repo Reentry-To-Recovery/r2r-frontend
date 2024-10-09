@@ -1093,8 +1093,7 @@ button.addNew {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: fit-content;
-  max-width: 80%;
+  width: 80%;
   margin: 32px auto;
   row-gap: 32px;
 }
@@ -1106,10 +1105,62 @@ button.addNew {
   column-gap: 32px;
 }
 
-.search {
+input.search {
   width: 100%;
 }
 
-.select-filter {
+select.select-filter {
   width: 100%;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 8px;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 32px auto;
+  row-gap: 32px;
+}
+
+.solid-button {
+  width: fit-content;
+  background-color: var(--main-color);
+  border: none;
+  color: var(--white);
+  margin-bottom: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    filter: brightness(85%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+input[type="checkbox"] {
+  accent-color: var(--main-color);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.breadcrumb-link {
+  color: var(--white);
 }
