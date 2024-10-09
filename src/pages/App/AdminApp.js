@@ -9,6 +9,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import Privacy from "../Privacy/Privacy";
 import AdminHome from "../../admin/pages/AdminHome";
 import CourseList from "../../admin/pages/courses/CourseList";
+import AddCourse from "../../admin/pages/courses/AddCourse";
+import { Toaster } from "react-hot-toast";
 
 export default function AdminApp() {
     const [showModal, setShowModal] = useState("");
@@ -26,12 +28,14 @@ export default function AdminApp() {
             <Routes>
                 <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/courses" element={<CourseList />} />
+                <Route path="/admin/courses/add" element={<AddCourse />} />
                 <Route path="/" element={<Navigate to="/admin" replace />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
 
             <Footer HashLink={HashLink} setShowModal={setShowModal} />
+            <Toaster />
         </main>
     );
 }

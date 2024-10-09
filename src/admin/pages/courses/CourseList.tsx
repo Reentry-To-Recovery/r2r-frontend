@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";
 import { SearchOrder, SearchPayload } from "../../../types/search";
 import Table from "../../components/Table";
+import AdminBreadcrumb from "../../components/AdminBreadcrumb";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -90,9 +91,7 @@ export default function CourseList() {
 
     return (
         <div className="webpage flex justify">
-            <div className="breadcrumb flex justify">
-                <div className="inner-breadcrumb">Courses</div>
-            </div>
+            <AdminBreadcrumb links={[]} current="Courses" />
             <div className="list-view">
                 <div className="filters">
                     <input

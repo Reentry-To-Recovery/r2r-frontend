@@ -18,3 +18,11 @@ export interface SearchCoursesSort {
     field: string
     order: SearchOrder
 }
+
+export interface AddCoursePayload {
+    title: string
+    description: string
+    iconUrl: string
+    hasCertificate: boolean
+    active: boolean
+}

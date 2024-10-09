@@ -44,11 +44,7 @@ const Table = <TData,>(props: TableProps<TData>) => {
                                         ? null
                                         : (
                                             <div
-                                                className={
-                                                    header.column.getCanSort()
-                                                        ? 'cursor-pointer select-none'
-                                                        : ''
-                                                }
+                                                className="flex"
                                                 onClick={header.column.getToggleSortingHandler()}
                                                 title={
                                                     header.column.getCanSort()
@@ -84,10 +80,10 @@ const Table = <TData,>(props: TableProps<TData>) => {
                         </tr>
                     ))}
                 </tbody>
-                {
-                    totalResults === 0 && <span>No Results</span>
-                }
             </table>
+            {
+                totalResults === 0 && "No Results"
+            }
             <div className="flex items-center gap-2">
                 <button
                     className="border rounded p-1"
@@ -155,7 +151,7 @@ const Table = <TData,>(props: TableProps<TData>) => {
                 Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
                 {table.getRowCount().toLocaleString()} Rows
             </div>
-        </div>
+        </div >
     );
 }
 
