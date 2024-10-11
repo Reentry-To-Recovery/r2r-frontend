@@ -80,8 +80,8 @@ const AddCourse = () => {
                     value={title}
                     onChange={handleTitleChange}
                     label="Title"
-                    helperText={title.length > 0 ? "" : "Must be shown"}
-                    error={title.length > 0}
+                    helperText={title.length > 0 ? "" : "Title must not be empty"}
+                    error={title.trim().length === 0}
                 />
                 <MultilineInput
                     id="description"

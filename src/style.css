@@ -1125,6 +1125,20 @@ select.select-filter {
   flex-direction: column;
 }
 
+.input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input--error {
+  border-color: red;
+}
+
+.input--error::placeholder {
+  color: red;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -1178,4 +1192,23 @@ textarea {
 
 .breadcrumb-link {
   color: var(--white);
+}
+
+.helperText {
+  font-size: 12px;
+  color: gray;
+  margin-top: 4px;
+}
+
+.helperText--error {
+  color: red;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.label--error {
+  color: red;
 }

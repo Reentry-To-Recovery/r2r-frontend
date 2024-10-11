@@ -6,16 +6,18 @@ interface MultilineInputProps {
     label: string
     onChange: React.ChangeEventHandler<HTMLTextAreaElement>
     disabled?: boolean
+    error?: boolean
 }
 
 const MultilineInput = (props: MultilineInputProps) => {
-    const { id, rows, cols, text, label, onChange, disabled } = props;
+    const { id, rows, cols, text, label, onChange, disabled, error } = props;
 
     return (
         <div className="inputField">
-            <label htmlFor={id}>{label}</label>
+            <label className={error ? "label label--error" : "label"} htmlFor={id}>{label}</label>
             <textarea
                 id={id}
+                className={error ? "input input--error" : "input"}
                 rows={rows ?? 1}
                 cols={cols ?? 1}
                 onChange={onChange}
