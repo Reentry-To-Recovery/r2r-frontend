@@ -9,3 +9,8 @@ export interface SearchPayload<TFilters, TSort> {
     filters: TFilters | null
     sort: TSort | null
 }
+
+export interface SearchResponseMeta {
+    totalResults: number
+    returnedResults: number
+}

@@ -19,7 +19,11 @@ export interface SearchCoursesSort {
     order: SearchOrder
 }
 
-export interface AddCoursePayload {
+export interface SearchCoursesResponseData {
+    courses: Course[]
+}
+
+export interface AddEditCoursePayload {
     title: string
     description: string
     iconUrl: string

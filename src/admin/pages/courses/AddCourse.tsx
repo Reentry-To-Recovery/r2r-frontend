@@ -3,12 +3,12 @@ import { useState } from "react";
 import Checkbox from "../../../components/Input/Checkbox";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
-import { AddCoursePayload } from "../../../types/courses";
+import { AddEditCoursePayload } from "../../../types/courses";
 import TextInput from "../../../components/Input/TextInput";
 import MultilineInput from "../../../components/Input/MultilineInput";
 import { isValidUrl } from "../../../util/urlHelpers";
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
+import FormButtons from "../../components/FormButtons";
 
 const AddCourse = () => {
     const [title, setTitle] = useState<string>("");
@@ -49,7 +49,7 @@ const AddCourse = () => {
         setIsLoading(true)
 
         try {
-            const payload: AddCoursePayload = {
+            const payload: AddEditCoursePayload = {
                 title: title,
                 description: description,
                 iconUrl: iconUrl,
@@ -61,22 +61,20 @@ const AddCourse = () => {
 
             setIsLoading(false);
             toast.success("Successfully created course");
+            navigate("/admin/courses");
         } catch (e: any) {
             console.log(e);
-            setIsLoading(false);
             const errorMessage = e.response?.data?.errorMessage;
             toast.error(errorMessage ?? "Error creating course");
-        } finally {
-            navigate("/admin/courses");
         }
     }
 
-    let isFormValid = title.trim().length > 0 && isValidUrl(iconUrl);
+    const isFormValid = title.trim().length > 0 && isValidUrl(iconUrl);
 
     return (
         <div className="webpage flex justify">
             <AdminBreadcrumb links={[{ title: "Courses", to: "/admin/courses" }]} current="Add New" />
-            <form>
+            <form onChange={() => { setIsLoading(false) }}>
                 <TextInput
                     id="title"
                     value={title}
@@ -110,11 +108,10 @@ const AddCourse = () => {
                     checked={active}
                     onChange={handleToggleActive}
                 />
-                <input
-                    type="submit"
-                    className="solid-button"
-                    onClick={submitCourse}
-                    disabled={!isFormValid || isLoading}
+                <FormButtons
+                    onSubmitClick={submitCourse}
+                    onCancelClick={() => { navigate("/admin/courses") }}
+                    submitDisabled={!isFormValid || isLoading}
                 />
             </form>
         </div>

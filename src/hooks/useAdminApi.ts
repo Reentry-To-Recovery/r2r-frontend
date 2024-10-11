@@ -1,8 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { fetchAdminCourses, adminAddCourse } from "../api/courses";
+import { fetchAdminCourses, adminAddCourse, adminEditCourse, adminFetchCourse } from "../api/courses";
 import { useCallback } from "react";
-import { SearchCoursesFilters, SearchCoursesSort, AddCoursePayload } from "../types/courses";
-import { SearchPayload } from "../types/search";
+import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/courses";
+import { SearchPayload, SearchResponseMeta } from "../types/search";
+import { ApiPayload } from "../types/api";
 
 const authorizationParams = {
     scope: "admin"
@@ -11,24 +12,42 @@ const authorizationParams = {
 export const useAdminApi = () => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const fetchCourses = useCallback(async (payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort>) => {
+    const fetchCourses = useCallback(async (payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort>): Promise<ApiPayload<SearchResponseMeta, SearchCoursesResponseData>> => {
         const token = await getAccessTokenSilently({
             authorizationParams: authorizationParams
         });
 
         return await fetchAdminCourses(token, payload);
-    }, [getAccessTokenSilently])
+    }, [getAccessTokenSilently]);
 
-    const addCourse = useCallback(async (payload: AddCoursePayload) => {
+    const addCourse = useCallback(async (payload: AddEditCoursePayload): Promise<ApiPayload<{}, Course>> => {
         const token = await getAccessTokenSilently({
             authorizationParams: authorizationParams
         });
 
         return await adminAddCourse(token, payload);
-    }, [getAccessTokenSilently])
+    }, [getAccessTokenSilently]);
+
+    const editCourse = useCallback(async (courseId: string, payload: AddEditCoursePayload): Promise<ApiPayload<{}, Course>> => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminEditCourse(token, courseId, payload);
+    }, [getAccessTokenSilently]);
+
+    const fetchCourse = useCallback(async (courseId: string): Promise<ApiPayload<{}, Course>> => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminFetchCourse(token, courseId);
+    }, [getAccessTokenSilently]);
 
     return {
         fetchCourses,
-        addCourse
-    }
+        addCourse,
+        editCourse,
+        fetchCourse
+    };
 }

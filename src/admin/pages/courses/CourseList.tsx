@@ -1,5 +1,5 @@
 import { PaginationState, SortingState, createColumnHelper } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Course, SearchCoursesFilters, SearchCoursesSort } from "../../../types/courses";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
@@ -7,41 +7,9 @@ import AddNewButton from "../../../components/Buttons/AddNewButton";
 import { SearchOrder, SearchPayload } from "../../../types/search";
 import Table from "../../components/Table";
 import AdminBreadcrumb from "../../components/AdminBreadcrumb";
+import TableActionCell from "../../components/TableActionCell";
 
 const columnHelper = createColumnHelper<Course>();
-
-const columns = [
-    columnHelper.accessor(
-        row => row.id,
-        {
-            header: "Course ID",
-            enableSorting: false
-        }
-    ),
-    columnHelper.accessor(
-        row => row.title,
-        {
-            header: "Title",
-            enableSorting: true,
-            sortDescFirst: false,
-            id: "title"
-        }
-    ),
-    columnHelper.accessor(
-        row => row.description,
-        {
-            header: "Description",
-            enableSorting: false
-        }
-    ),
-    columnHelper.accessor(
-        row => row.active,
-        {
-            header: "Active",
-            enableSorting: false
-        }
-    )
-];
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -63,6 +31,53 @@ export default function CourseList() {
         e.preventDefault();
         setActiveFilter(e.target.value);
     }
+
+    const columns = useMemo(() => [
+        columnHelper.accessor(
+            row => row.id,
+            {
+                header: "Course ID",
+                enableSorting: false
+            }
+        ),
+        columnHelper.accessor(
+            row => row.title,
+            {
+                header: "Title",
+                enableSorting: true,
+                sortDescFirst: false,
+                id: "title"
+            }
+        ),
+        columnHelper.accessor(
+            row => row.description,
+            {
+                header: "Description",
+                enableSorting: false
+            }
+        ),
+        columnHelper.accessor(
+            row => row.hasCertificate,
+            {
+                header: "Has Certificate?",
+                enableSorting: false
+            }
+        ),
+        columnHelper.accessor(
+            row => row.active,
+            {
+                header: "Active?",
+                enableSorting: false
+            }
+        ),
+        columnHelper.display({
+            id: "actions",
+            header: "Actions",
+            cell: context => <TableActionCell>
+                <button className="solid-button" onClick={() => { navigate(`${context.cell.row.original.id}/edit`) }}>Edit Course</button>
+            </TableActionCell>
+        })
+    ], [navigate]);
 
     useEffect(() => {
         const payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort> = {
