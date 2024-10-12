@@ -14,7 +14,7 @@ const TextInput = (props: TextInputProps) => {
     const { id, value, onChange, label, disabled, error, helperText } = props;
 
     return (
-        <div className={error ? "inputField inputField--error" : "inputField"}>
+        <div className="inputField">
             <label className={error ? "label label--error" : "label"} htmlFor={id}>{label}</label>
             <input
                 id={id}

@@ -108,8 +108,9 @@ const EditCourse = () => {
                 value={title}
                 onChange={handleTitleChange}
                 label="Title"
-                helperText={title.length > 0 ? "" : "Must be shown"}
-                error={title.length > 0}
+                helperText={title.length > 0 ? "" : "Title must not be empty"}
+                error={!isLoading && title.trim().length === 0}
+                disabled={isLoading}
             />
             <MultilineInput
                 id="description"
@@ -117,29 +118,35 @@ const EditCourse = () => {
                 onChange={handleDescriptionChange}
                 label="Description"
                 rows={3}
+                disabled={isLoading}
             />
             <TextInput
                 id="iconUrl"
                 value={iconUrl}
                 onChange={handleIconUrlChange}
                 label="Icon URL"
+                helperText={iconUrl.trim().length > 0 ? (isValidUrl(iconUrl) ? "" : "Please enter a valid URL") : "Icon URL must not be empty"}
+                error={!isLoading && (iconUrl.trim().length === 0 || !isValidUrl(iconUrl))}
+                disabled={isLoading}
             />
             <Checkbox
                 id="hasCertificate"
                 label="Has Certificate?"
                 checked={hasCertificate}
                 onChange={handleToggleHasCertificate}
+                disabled={isLoading}
             />
             <Checkbox
                 id="active"
                 label="Active?"
                 checked={active}
                 onChange={handleToggleActive}
+                disabled={isLoading}
             />
             <FormButtons
                 onSubmitClick={submitCourse}
                 onCancelClick={() => { navigate("/admin/courses") }}
-                submitDisabled={!isFormValid || isSubmitting}
+                submitDisabled={!isFormValid || isSubmitting || isLoading}
             />
         </form>
     </div>);

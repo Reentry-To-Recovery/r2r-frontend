@@ -17,6 +17,8 @@ const AddCourse = () => {
     const [hasCertificate, setHasCertificate] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isTitleTouched, setIsTitleTouched] = useState<boolean>(false);
+    const [isIconUrlTouched, setIsIconUrlTouched] = useState<boolean>(false);
 
     const { addCourse } = useAdminApi();
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ const AddCourse = () => {
     const handleTitleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         e.preventDefault();
         setTitle(e.target.value);
+        setIsTitleTouched(true);
     }
 
     const handleDescriptionChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
@@ -34,6 +37,7 @@ const AddCourse = () => {
     const handleIconUrlChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         e.preventDefault();
         setIconUrl(e.target.value);
+        setIsIconUrlTouched(true);
     }
 
     const handleToggleHasCertificate: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -81,7 +85,7 @@ const AddCourse = () => {
                     onChange={handleTitleChange}
                     label="Title"
                     helperText={title.length > 0 ? "" : "Title must not be empty"}
-                    error={title.trim().length === 0}
+                    error={isTitleTouched && title.trim().length === 0}
                 />
                 <MultilineInput
                     id="description"
@@ -95,6 +99,8 @@ const AddCourse = () => {
                     value={iconUrl}
                     onChange={handleIconUrlChange}
                     label="Icon URL"
+                    helperText={iconUrl.trim().length > 0 ? (isValidUrl(iconUrl) ? "" : "Please enter a valid URL") : "Icon URL must not be empty"}
+                    error={isIconUrlTouched && (iconUrl.trim().length === 0 || !isValidUrl(iconUrl))}
                 />
                 <Checkbox
                     id="hasCertificate"
