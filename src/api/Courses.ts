@@ -71,3 +71,16 @@ export const adminFetchCourse = async (token: string, courseId: string): Promise
 
     return response.data;
 };
+
+export const adminDeleteCourse = async (token: string, courseId: string) => {
+    const response = await axios.delete(
+        `${apiUrl}/admin/courses/${courseId}`,
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    );
+
+    return response.data;
+}

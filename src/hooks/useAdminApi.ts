@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { fetchAdminCourses, adminAddCourse, adminEditCourse, adminFetchCourse } from "../api/courses";
+import { fetchAdminCourses, adminAddCourse, adminEditCourse, adminFetchCourse, adminDeleteCourse } from "../api/courses";
 import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
@@ -44,10 +44,19 @@ export const useAdminApi = () => {
         return await adminFetchCourse(token, courseId);
     }, [getAccessTokenSilently]);
 
+    const deleteCourse = useCallback(async (courseId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminDeleteCourse(token, courseId);
+    }, [getAccessTokenSilently]);
+
     return {
         fetchCourses,
         addCourse,
         editCourse,
-        fetchCourse
+        fetchCourse,
+        deleteCourse
     };
 }

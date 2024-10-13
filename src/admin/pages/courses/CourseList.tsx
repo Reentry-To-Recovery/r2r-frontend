@@ -8,6 +8,8 @@ import { SearchOrder, SearchPayload } from "../../../types/search";
 import Table from "../../components/Table";
 import AdminBreadcrumb from "../../components/AdminBreadcrumb";
 import TableActionCell from "../../components/TableActionCell";
+import ConfirmationModal from "../../components/ConfirmationModal";
+import toast from "react-hot-toast";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -18,8 +20,10 @@ export default function CourseList() {
     const [sorting, setSorting] = useState<SortingState>([{ id: "title", desc: false }])
     const [titleSearch, setTitleSearch] = useState<string>("");
     const [activeFilter, setActiveFilter] = useState<string>("");
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [courseToDelete, setCourseToDelete] = useState<Course | null>(null);
 
-    const { fetchCourses } = useAdminApi();
+    const { fetchCourses, deleteCourse } = useAdminApi();
     const navigate = useNavigate();
 
     const handleTitleSearchChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -74,10 +78,53 @@ export default function CourseList() {
             id: "actions",
             header: "Actions",
             cell: context => <TableActionCell>
-                <button className="solid-button" onClick={() => { navigate(`${context.cell.row.original.id}/edit`) }}>Edit Course</button>
+                <div className="flex" style={{ columnGap: "8px" }}>
+                    <button className="solid-button" onClick={() => { navigate(`${context.cell.row.original.id}/edit`) }}>Edit</button>
+                    <button
+                        className="solid-button"
+                        onClick={() => {
+                            setShowDeleteModal(true);
+                            setCourseToDelete(context.cell.row.original);
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
             </TableActionCell>
         })
     ], [navigate]);
+
+    const handleDeleteCourse = async () => {
+        try {
+            await deleteCourse(courseToDelete?.id ?? "");
+            toast.success("Course deleted successfully");
+        } catch (e: any) {
+            console.log(e);
+            const errorMessage = e.response?.data?.errorMessage;
+            toast.error(errorMessage ?? "Error deleting course");
+        } finally {
+            const payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort> = {
+                offset: pagination.pageIndex * pagination.pageSize,
+                limit: pagination.pageSize,
+                sort: { field: sorting[0].id, order: sorting[0].desc ? SearchOrder.Desc : SearchOrder.Asc },
+                filters: {
+                    title: titleSearch,
+                    active: activeFilter === "true" ? true : (activeFilter === "false" ? false : null)
+                }
+            };
+
+            try {
+                const response = await fetchCourses(payload);
+
+                setCourses(response.data.courses);
+                setTotalResults(response.meta.totalResults);
+            } catch (e) {
+                console.log(e);
+            }
+
+            setShowDeleteModal(false);
+        }
+    }
 
     useEffect(() => {
         const payload: SearchPayload<SearchCoursesFilters, SearchCoursesSort> = {
@@ -111,12 +158,12 @@ export default function CourseList() {
                 <div className="filters">
                     <input
                         type="search"
-                        className="search"
+                        className="search input"
                         placeholder="Search titles"
                         onChange={handleTitleSearchChange}
                         value={titleSearch}
                     />
-                    <select className="select-filter" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
+                    <select className="select-filter input" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
                         <option value="">Show All Active/Inactive</option>
                         <option value="true">Active Only</option>
                         <option value="false">Inactive Only</option>
@@ -135,6 +182,15 @@ export default function CourseList() {
                     />
                 </div>
             </div>
+            <ConfirmationModal
+                showModal={showDeleteModal}
+                content="Are you sure you would like to delete this course?"
+                onConfirm={() => { handleDeleteCourse() }}
+                onCancel={() => {
+                    setShowDeleteModal(false);
+                    setCourseToDelete(null);
+                }}
+            />
         </div>
     );
 }
