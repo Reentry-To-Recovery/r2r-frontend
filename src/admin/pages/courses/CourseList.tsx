@@ -181,13 +181,17 @@ export default function CourseList() {
             </div>
             <ConfirmationModal
                 showModal={showDeleteModal}
-                content="Are you sure you would like to delete this course?"
                 onConfirm={() => { handleDeleteCourse() }}
                 onCancel={() => {
                     setShowDeleteModal(false);
                     setCourseToDelete(null);
                 }}
-            />
+            >
+                <span>
+                    <span>Are you sure you would like to delete</span>{' '}
+                    <span style={{ fontWeight: "bold" }}>{courseToDelete?.title ?? ""}</span>{"?"}
+                </span>
+            </ConfirmationModal>
         </div>
     );
 }
