@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useUserRole } from "../../hooks/useUserRole";
+import { useUserRole, UserRole } from "../../hooks/useUserRole";
 import { useAuth0 } from "@auth0/auth0-react";
 import { HashLink } from "react-router-hash-link";
 import Home from "../Home/Home";
@@ -14,6 +14,9 @@ import Certificate from "../Certificate/Certificate";
 import Footer from "../../components/Footer";
 import Dashboard from "../Dashboard/Dashboard";
 import Profile from "../../components/Auth/Profile";
+import CourseList from "../../admin/pages/courses/CourseList";
+import AddCourse from "../../admin/pages/courses/AddCourse";
+import EditCourse from "../../admin/pages/courses/EditCourse";
 
 export default function App() {
   const [showModal, setShowModal] = useState("");
@@ -69,9 +72,16 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
 
         {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
+        {isAuthenticated && userRole === UserRole.Admin &&
+          <Route path="/courses">
+            <Route index element={<CourseList />} />
+            <Route path="add" element={<AddCourse />} />
+            <Route path=":id/edit" element={<EditCourse />} />
+          </Route>
+        }
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />
-    </main>
+    </main >
   );
 }

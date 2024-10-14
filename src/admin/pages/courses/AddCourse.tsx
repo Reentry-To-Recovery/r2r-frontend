@@ -65,7 +65,7 @@ const AddCourse = () => {
 
             setIsLoading(false);
             toast.success("Successfully created course");
-            navigate("/admin/courses");
+            navigate("/courses");
         } catch (e: any) {
             console.log(e);
             const errorMessage = e.response?.data?.errorMessage;
@@ -77,7 +77,7 @@ const AddCourse = () => {
 
     return (
         <div className="webpage flex justify">
-            <AdminBreadcrumb links={[{ title: "Courses", to: "/admin/courses" }]} current="Add New" />
+            <AdminBreadcrumb links={[{ title: "Courses", to: "/courses" }]} current="Add New" />
             <form onChange={() => { setIsLoading(false) }}>
                 <TextInput
                     id="title"
@@ -116,7 +116,7 @@ const AddCourse = () => {
                 />
                 <FormButtons
                     onSubmitClick={submitCourse}
-                    onCancelClick={() => { navigate("/admin/courses") }}
+                    onCancelClick={() => { navigate("/courses") }}
                     submitDisabled={!isFormValid || isLoading}
                 />
             </form>

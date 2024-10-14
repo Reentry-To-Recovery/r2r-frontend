@@ -4,10 +4,12 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Auth/LoginButton";
 import LogoutButton from "./Auth/LogoutButton";
+import { useUserRole, UserRole } from "../hooks/useUserRole";
 
 export default function Nav({ useState, setShowModal }) {
   const [navDropDown, setNavDropDown] = useState(false);
   const { isAuthenticated } = useAuth0();
+  const { userRole } = useUserRole();
 
   return (
     <nav id="nav" className="flex justify">
@@ -68,16 +70,28 @@ export default function Nav({ useState, setShowModal }) {
           >
             Certificate
           </NavLink>
-          <HashLink
-            onClick={() => {
-              setNavDropDown(false);
-            }}
-            className="link"
-            smooth
-            to="/#courses"
-          >
-            Courses
-          </HashLink>
+          {isAuthenticated && userRole === UserRole.Admin ?
+            <NavLink
+              onClick={() => {
+                setNavDropDown(false);
+              }}
+              className="link"
+              to="/courses"
+            >
+              Courses
+            </NavLink> :
+            <HashLink
+              onClick={() => {
+                setNavDropDown(false);
+              }}
+              className="link"
+              smooth
+              to="/#courses"
+            >
+              Courses
+            </HashLink>
+          }
+
           {isAuthenticated ? (
             <>
               <NavLink

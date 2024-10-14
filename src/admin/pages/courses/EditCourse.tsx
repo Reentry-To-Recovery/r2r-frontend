@@ -98,10 +98,17 @@ const EditCourse = () => {
         }
     }, [id, fetchCourse]);
 
-    const isFormValid = title.trim().length > 0 && isValidUrl(iconUrl) && (title !== course?.title || description !== course?.description || iconUrl !== course?.iconUrl || hasCertificate !== course?.hasCertificate || active !== course?.active);
+    const isFormValid = title.trim().length > 0 &&
+        isValidUrl(iconUrl) &&
+        (title !== course?.title ||
+            description !== course?.description ||
+            iconUrl !== course?.iconUrl ||
+            hasCertificate !== course?.hasCertificate ||
+            active !== course?.active
+        );
 
     return (<div className="webpage flex justify">
-        <AdminBreadcrumb links={[{ title: "Courses", to: "/admin/courses" }]} current="Edit Course" />
+        <AdminBreadcrumb links={[{ title: "Courses", to: "/courses" }]} current="Edit Course" />
         <form onChange={() => { setIsSubmitting(false) }}>
             <TextInput
                 id="title"
@@ -145,7 +152,7 @@ const EditCourse = () => {
             />
             <FormButtons
                 onSubmitClick={submitCourse}
-                onCancelClick={() => { navigate("/admin/courses") }}
+                onCancelClick={() => { navigate("/courses") }}
                 submitDisabled={!isFormValid || isSubmitting || isLoading}
             />
         </form>
