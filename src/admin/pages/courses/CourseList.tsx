@@ -27,14 +27,10 @@ export default function CourseList() {
     const { fetchCourses, deleteCourse } = useAdminApi();
     const navigate = useNavigate();
 
-    const handleTitleSearchChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        e.preventDefault();
-        setTitleSearch(e.target.value);
-    }
-
     const handleActiveFilterChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
         setActiveFilter(e.target.value);
+        setPagination((prevPagination) => ({ pageIndex: 0, pageSize: prevPagination.pageSize }));
     }
 
     const columns = useMemo(() => [
@@ -159,7 +155,9 @@ export default function CourseList() {
                 <div className="filters">
                     <DebounceSearchBar
                         id="courseTitleSearch"
-                        onDebounce={(query: string) => { setTitleSearch(query); }}
+                        onDebounce={(query: string) => {
+                            setTitleSearch(query);
+                        }}
                         placeholder="Search titles"
                     />
                     <select className="select-filter input" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
