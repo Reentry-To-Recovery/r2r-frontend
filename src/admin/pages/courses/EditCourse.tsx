@@ -66,6 +66,7 @@ const EditCourse = () => {
             setIsSubmitting(false);
             setCourse(response.data);
             toast.success("Successfully updated course");
+            navigate("/courses");
         } catch (e: any) {
             console.log(e);
             const errorMessage = e.response?.data?.errorMessage;

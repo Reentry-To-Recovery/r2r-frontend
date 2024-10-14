@@ -17,6 +17,7 @@ import Profile from "../../components/Auth/Profile";
 import CourseList from "../../admin/pages/courses/CourseList";
 import AddCourse from "../../admin/pages/courses/AddCourse";
 import EditCourse from "../../admin/pages/courses/EditCourse";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const [showModal, setShowModal] = useState("");
@@ -82,6 +83,7 @@ export default function App() {
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />
+      <Toaster />
     </main >
   );
 }
