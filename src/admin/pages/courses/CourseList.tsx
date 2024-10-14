@@ -10,6 +10,7 @@ import AdminBreadcrumb from "../../components/AdminBreadcrumb";
 import TableActionCell from "../../components/TableActionCell";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import toast from "react-hot-toast";
+import DebounceSearchBar from "../../components/DebounceSearchBar";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -156,12 +157,10 @@ export default function CourseList() {
             <AdminBreadcrumb links={[]} current="Courses" />
             <div className="list-view">
                 <div className="filters">
-                    <input
-                        type="search"
-                        className="search input"
+                    <DebounceSearchBar
+                        id="courseTitleSearch"
+                        onDebounce={(query: string) => { setTitleSearch(query); }}
                         placeholder="Search titles"
-                        onChange={handleTitleSearchChange}
-                        value={titleSearch}
                     />
                     <select className="select-filter input" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
                         <option value="">Show All Active/Inactive</option>
