@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "./reset.css";
 import "./style.css";
+import "./table.css";
 import App from "./pages/App/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
