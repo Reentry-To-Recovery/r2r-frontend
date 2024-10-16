@@ -3,7 +3,7 @@ import { useState } from "react";
 import Checkbox from "../../../components/Input/Checkbox";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
-import { AddEditCoursePayload } from "../../../types/courses";
+import { AddEditCoursePayload } from "../../../types/Courses";
 import TextInput from "../../../components/Input/TextInput";
 import MultilineInput from "../../../components/Input/MultilineInput";
 import { isValidUrl } from "../../../util/urlHelpers";

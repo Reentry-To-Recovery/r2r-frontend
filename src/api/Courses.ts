@@ -1,6 +1,6 @@
 import axios from "axios";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
-import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/courses";
+import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { ApiPayload } from "../types/api";
 
 const apiUrl = process.env.REACT_APP_API_URL;

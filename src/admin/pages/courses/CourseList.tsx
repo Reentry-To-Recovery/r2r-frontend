@@ -1,6 +1,6 @@
 import { PaginationState, SortingState, createColumnHelper } from "@tanstack/react-table";
 import { useState, useEffect, useMemo } from "react";
-import { Course, SearchCoursesFilters, SearchCoursesSort } from "../../../types/courses";
+import { Course, SearchCoursesFilters, SearchCoursesSort } from "../../../types/Courses";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";

@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { fetchAdminCourses, adminAddCourse, adminEditCourse, adminFetchCourse, adminDeleteCourse } from "../api/courses";
+import { fetchAdminCourses, adminAddCourse, adminEditCourse, adminFetchCourse, adminDeleteCourse } from "../api/Courses";
 import { useCallback } from "react";
-import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/courses";
+import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
 
