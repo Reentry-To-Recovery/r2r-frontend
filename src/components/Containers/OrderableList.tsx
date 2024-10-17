@@ -14,24 +14,19 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy
 } from '@dnd-kit/sortable';
-import SortableItem from './SortableItem';
+import SortableItem, { Sortable } from './SortableItem';
 
-interface OrderableListProps<TData extends { id: string, title: string }> {
+interface OrderableListProps<TData extends Sortable> {
     data: TData[]
     onExpandItem?: (item: TData) => void
     onEdit?: (item: TData) => void
     onDelete?: (item: TData) => void
-    onReorder?: () => void
+    onReorder?: (orderedItems: TData[]) => void
 }
 
-const OrderableList = <TData extends { id: string, title: string }>(props: OrderableListProps<TData>) => {
+const OrderableList = <TData extends Sortable>(props: OrderableListProps<TData>) => {
     const { data, onExpandItem, onEdit, onDelete, onReorder } = props;
     const [items, setItems] = useState<TData[]>(data);
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-    };
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -49,10 +44,9 @@ const OrderableList = <TData extends { id: string, title: string }>(props: Order
                 const newIndex = items.findIndex((item) => item.id === over?.id.toString());
                 const newItems = arrayMove(items, oldIndex, newIndex);
 
-                // Call the onReorder prop if it exists
-                // if (onReorder) {
-                //     onReorder(newItems);
-                // }
+                if (onReorder) {
+                    onReorder(newItems);
+                }
 
                 return newItems;
             });
@@ -68,21 +62,18 @@ const OrderableList = <TData extends { id: string, title: string }>(props: Order
             <SortableContext items={items.map(item => item.id)} strategy={verticalListSortingStrategy}>
                 <ul style={styles.list}>
                     {items.map((item) => (
-                        <SortableItem key={item.id} id={item.id} onClick={() => {
-                            if (onExpandItem) {
-                                toggleCollapse();
-                                onExpandItem(item);
-                            }
-                        }}>
-                            <div style={styles.listItem}>
-                                <span>{item.title}</span>
-                                {onExpandItem && <span style={styles.arrow}>{isOpen ? "▲" : "▼"}</span>}
-                            </div>
+                        <SortableItem
+                            key={item.id}
+                            item={item}
+                            onExpandItem={() => { if (onExpandItem) { onExpandItem(item); } }}
+                            onEdit={() => { }}
+                            onDelete={() => { }}
+                        >
                         </SortableItem>
                     ))}
                 </ul>
             </SortableContext>
-        </DndContext>
+        </DndContext >
     );
 };
 
@@ -91,15 +82,6 @@ const styles = {
         listStyleType: "none",
         padding: 0,
         margin: 0
-    },
-    arrow: {
-        marginLeft: "8px",
-        fontSize: "16px",
-    },
-    listItem: {
-        display: "flex",
-        justifyContent: "space-between",
-        cursor: "pointer",
     }
 }
 

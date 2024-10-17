@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
 interface CollapsibleProps {
     title: string
@@ -24,7 +25,7 @@ const Collapsible = (props: CollapsibleProps) => {
                 onClick={toggleCollapse}
             >
                 <span>{title}</span>
-                <span style={styles.arrow}>{isOpen ? "▲" : "▼"}</span>
+                <span style={styles.arrow}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
             </div>
             {isOpen && <div style={styles.content}>{children}</div>}
         </div>
@@ -41,7 +42,8 @@ const styles = {
         display: "flex",
         justifyContent: "space-between",
         cursor: "pointer",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        alignItems: "center",
     },
     arrow: {
         marginLeft: "8px",

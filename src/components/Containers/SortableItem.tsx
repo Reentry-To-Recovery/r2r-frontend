@@ -3,22 +3,39 @@ import {
 } from '@dnd-kit/sortable';
 import { ReactNode } from 'react';
 import { FaBars } from 'react-icons/fa';
+import { FaPenToSquare, FaAngleDown, FaAngleUp, FaRegTrashCan } from 'react-icons/fa6';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
 
-interface SortableItemProps {
-    id: string
-    children: ReactNode
-    onClick?: () => void
+interface SortableItemProps<TData extends Sortable> {
+    item: TData
     onEdit?: () => void
     onDelete?: () => void
-    onReorder?: () => void
+    onExpandItem?: (item: TData) => void
+    children?: ReactNode
 }
 
-const SortableItem = (props: SortableItemProps) => {
-    const { id, children, onClick } = props;
+export interface Sortable {
+    id: string
+    title: string
+}
+
+const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) => {
+    const { item, children, onEdit, onDelete, onExpandItem } = props;
     const [isClick, setIsClick] = useState(true);
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleCollapse = () => {
+        const newIsOpen = !isOpen;
+        setIsOpen(newIsOpen);
+
+        if (newIsOpen) {
+            if (onExpandItem) {
+                onExpandItem(item);
+            }
+        }
+    };
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -37,10 +54,9 @@ const SortableItem = (props: SortableItemProps) => {
         setIsClick(false);
     };
 
-    // Handle the click event
     const handleClick = () => {
         if (isClick) {
-            if (onClick) onClick();
+            toggleCollapse();
         }
     };
 
@@ -57,6 +73,14 @@ const SortableItem = (props: SortableItemProps) => {
             <span style={styles.handle}>
                 <FaBars />
             </span>
+            <div style={styles.header}>
+                <span>{item.title}</span>
+                <div style={styles.actions}>
+                    {onEdit && <span style={styles.action}><FaPenToSquare /></span>}
+                    {onDelete && <span style={styles.action}><FaRegTrashCan /></span>}
+                    {onExpandItem && <span style={styles.arrow}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>}
+                </div>
+            </div>
             {children}
         </li>
     );
@@ -77,6 +101,25 @@ const styles = {
         marginRight: "8px",
         cursor: "grab",
         fontSize: "18p",
+    },
+    action: {
+        cursor: "pointer",
+        fontSize: "18p",
+        marginRight: "16px",
+    },
+    arrow: {
+        fontSize: "16px",
+        cursor: "pointer"
+    },
+    header: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%"
+    },
+    actions: {
+        display: "flex",
+        alignItems: "center"
     }
 };
 
