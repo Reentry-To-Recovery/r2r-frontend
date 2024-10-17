@@ -1,20 +1,39 @@
 import Collapsible from "../../../components/Containers/Collapsible";
 import OrderableList from "../../../components/Containers/OrderableList";
+import { useAdminApi } from "../../../hooks/useAdminApi";
 import { CourseSection } from "../../../types/courseSection";
+import { useState, useEffect } from "react";
 
-const CourseBuilder = () => {
-    const courseSections: CourseSection[] = [
-        {
-            id: "1234",
-            courseId: "1234",
-            title: "1234",
-            sortIndex: 0
+interface CourseBuilderProps {
+    courseId: string
+}
+
+const CourseBuilder = (props: CourseBuilderProps) => {
+    const { courseId } = props;
+    const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
+    const { fetchCourseSections } = useAdminApi();
+
+    useEffect(() => {
+        const fetchSections = async () => {
+            try {
+                const response = await fetchCourseSections(courseId);
+
+                setCourseSections(response.data.sections);
+            } catch (e) {
+                console.log(e);
+            }
         }
-    ];
+
+        fetchSections();
+    }, [courseId, fetchCourseSections]);
+
+    const handleExpandItem = (item: CourseSection) => {
+
+    }
 
     return (
         <Collapsible title="Course Builder">
-            <OrderableList />
+            <OrderableList data={courseSections} onExpandItem={handleExpandItem} />
         </Collapsible>
     );
 }

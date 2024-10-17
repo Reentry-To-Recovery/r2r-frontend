@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
+import { adminFetchCourseSections } from "../api/CourseSections";
 
 const authorizationParams = {
     scope: "admin"
@@ -52,11 +53,20 @@ export const useAdminApi = () => {
         return await adminDeleteCourse(token, courseId);
     }, [getAccessTokenSilently]);
 
+    const fetchCourseSections = useCallback(async (courseId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminFetchCourseSections(token, courseId);
+    }, [getAccessTokenSilently]);
+
     return {
         fetchCourses,
         addCourse,
         editCourse,
         fetchCourse,
-        deleteCourse
+        deleteCourse,
+        fetchCourseSections
     };
 }
