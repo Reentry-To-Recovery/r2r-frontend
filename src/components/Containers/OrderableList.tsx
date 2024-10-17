@@ -16,12 +16,22 @@ import {
 } from '@dnd-kit/sortable';
 import SortableItem from './SortableItem';
 
+interface OrderableListProps<TData extends { id: string, title: string }> {
+    data: TData[]
+    onExpandItem?: (item: TData) => void
+    onEdit?: (item: TData) => void
+    onDelete?: (item: TData) => void
+    onReorder?: () => void
+}
 
-// Mock data
-const initialItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+const OrderableList = <TData extends { id: string, title: string }>(props: OrderableListProps<TData>) => {
+    const { data, onExpandItem, onEdit, onDelete, onReorder } = props;
+    const [items, setItems] = useState<TData[]>(data);
+    const [isOpen, setIsOpen] = useState(false);
 
-const OrderableList = () => {
-    const [items, setItems] = useState(initialItems);
+    const toggleCollapse = () => {
+        setIsOpen(!isOpen);
+    };
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -35,9 +45,16 @@ const OrderableList = () => {
 
         if (active.id !== over?.id) {
             setItems((items) => {
-                const oldIndex = items.indexOf(active.id.toString());
-                const newIndex = items.indexOf(over?.id?.toString() ?? "");
-                return arrayMove(items, oldIndex, newIndex);
+                const oldIndex = items.findIndex((item) => item.id === active.id.toString());
+                const newIndex = items.findIndex((item) => item.id === over?.id.toString());
+                const newItems = arrayMove(items, oldIndex, newIndex);
+
+                // Call the onReorder prop if it exists
+                // if (onReorder) {
+                //     onReorder(newItems);
+                // }
+
+                return newItems;
             });
         }
     };
@@ -48,11 +65,19 @@ const OrderableList = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            <SortableContext items={items.map(item => item.id)} strategy={verticalListSortingStrategy}>
                 <ul style={styles.list}>
                     {items.map((item) => (
-                        <SortableItem key={item} id={item}>
-                            {item}
+                        <SortableItem key={item.id} id={item.id} onClick={() => {
+                            if (onExpandItem) {
+                                toggleCollapse();
+                                onExpandItem(item);
+                            }
+                        }}>
+                            <div style={styles.listItem}>
+                                <span>{item.title}</span>
+                                {onExpandItem && <span style={styles.arrow}>{isOpen ? "▲" : "▼"}</span>}
+                            </div>
                         </SortableItem>
                     ))}
                 </ul>
@@ -66,6 +91,15 @@ const styles = {
         listStyleType: "none",
         padding: 0,
         margin: 0
+    },
+    arrow: {
+        marginLeft: "8px",
+        fontSize: "16px",
+    },
+    listItem: {
+        display: "flex",
+        justifyContent: "space-between",
+        cursor: "pointer",
     }
 }
 

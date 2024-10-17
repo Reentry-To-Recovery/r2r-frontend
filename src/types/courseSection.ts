@@ -4,3 +4,7 @@ export interface CourseSection {
     title: string
     sortIndex: number
 }
+
+export interface FetchCourseSectionsResponse {
+    sections: CourseSection[]
+}

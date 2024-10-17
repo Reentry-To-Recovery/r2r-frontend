@@ -151,7 +151,7 @@ const EditCourse = () => {
                 onChange={handleToggleActive}
                 disabled={isLoading}
             />
-            <CourseBuilder />
+            <CourseBuilder courseId={id ?? ""} />
             <FormButtons
                 onSubmitClick={submitCourse}
                 onCancelClick={() => { navigate("/courses") }}
