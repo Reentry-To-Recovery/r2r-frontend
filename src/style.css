@@ -1075,7 +1075,7 @@ a:hover {
 button.addNew {
   width: fit-content;
   border: 1px solid var(--main-color);
-  background-color: transparent;
+  background-color: var(--white);
   color: var(--main-color);
   margin-bottom: 16px;
   border-radius: 4px;
@@ -1168,7 +1168,7 @@ form {
 
 .transparent-button {
   width: fit-content;
-  border: 1px solid var(--main-color);
+  border: 2px solid var(--main-color);
   background-color: transparent;
   color: var(--main-color);
   border-radius: 4px;
