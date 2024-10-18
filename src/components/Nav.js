@@ -70,27 +70,16 @@ export default function Nav({ useState, setShowModal }) {
           >
             Certificate
           </NavLink>
-          {isAuthenticated && userRole === UserRole.Admin ?
-            <NavLink
-              onClick={() => {
-                setNavDropDown(false);
-              }}
-              className="link"
-              to="/courses"
-            >
-              Courses
-            </NavLink> :
-            <HashLink
-              onClick={() => {
-                setNavDropDown(false);
-              }}
-              className="link"
-              smooth
-              to="/#courses"
-            >
-              Courses
-            </HashLink>
-          }
+          <HashLink
+            onClick={() => {
+              setNavDropDown(false);
+            }}
+            className="link"
+            smooth
+            to="/#courses"
+          >
+            Courses
+          </HashLink>
 
           {isAuthenticated ? (
             <>

@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useUserRole, UserRole } from "../../hooks/useUserRole";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -75,7 +75,7 @@ export default function App() {
         {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
         {isAuthenticated && userRole === UserRole.Admin &&
           <Route path="/courses">
-            <Route index element={<CourseList />} />
+            <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="add" element={<AddCourse />} />
             <Route path=":id/edit" element={<EditCourse />} />
           </Route>

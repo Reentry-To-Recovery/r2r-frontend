@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-const AddNewButton = () => {
+interface AddNewButtonProps {
+    link: string
+}
+
+const AddNewButton = (props: AddNewButtonProps) => {
+    const { link } = props;
     const navigate = useNavigate();
 
-    return (<button className="addNew" onClick={() => { navigate("add") }}>+ Add New</button>)
+    return (<button className="addNew" onClick={() => { navigate(link) }}>+ Add New</button>)
 }
 
 export default AddNewButton;

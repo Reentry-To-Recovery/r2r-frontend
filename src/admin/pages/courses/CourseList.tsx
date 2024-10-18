@@ -76,7 +76,7 @@ export default function CourseList() {
             header: "Actions",
             cell: context => <TableActionCell>
                 <div className="flex" style={{ columnGap: "8px" }}>
-                    <button className="solid-button" onClick={() => { navigate(`${context.cell.row.original.id}/edit`) }}>Edit</button>
+                    <button className="solid-button" onClick={() => { navigate(`/courses/${context.cell.row.original.id}/edit`) }}>Edit</button>
                     <button
                         className="solid-button"
                         onClick={() => {
@@ -149,35 +149,33 @@ export default function CourseList() {
     }, [fetchCourses, pagination, sorting, titleSearch, activeFilter]);
 
     return (
-        <div className="webpage flex justify">
-            <AdminBreadcrumb links={[]} current="Courses" />
-            <div className="list-view">
-                <div className="filters">
-                    <DebounceSearchBar
-                        id="courseTitleSearch"
-                        onDebounce={(query: string) => {
-                            setTitleSearch(query);
-                        }}
-                        placeholder="Search titles"
-                    />
-                    <select className="select-filter input" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
-                        <option value="">Show All Active/Inactive</option>
-                        <option value="true">Active Only</option>
-                        <option value="false">Inactive Only</option>
-                    </select>
-                </div>
-                <div >
-                    <AddNewButton />
-                    <Table
-                        totalResults={totalResults}
-                        columns={columns}
-                        pagination={pagination}
-                        setPagination={setPagination}
-                        data={courses}
-                        sorting={sorting}
-                        onSortingChange={setSorting}
-                    />
-                </div>
+        <div className="list-view">
+            <h2>Courses</h2>
+            <div className="filters">
+                <DebounceSearchBar
+                    id="courseTitleSearch"
+                    onDebounce={(query: string) => {
+                        setTitleSearch(query);
+                    }}
+                    placeholder="Search titles"
+                />
+                <select className="select-filter input" name="active" value={activeFilter} onChange={handleActiveFilterChange}>
+                    <option value="">Show All Active/Inactive</option>
+                    <option value="true">Active Only</option>
+                    <option value="false">Inactive Only</option>
+                </select>
+            </div>
+            <div >
+                <AddNewButton link="/courses/add" />
+                <Table
+                    totalResults={totalResults}
+                    columns={columns}
+                    pagination={pagination}
+                    setPagination={setPagination}
+                    data={courses}
+                    sorting={sorting}
+                    onSortingChange={setSorting}
+                />
             </div>
             <ConfirmationModal
                 showModal={showDeleteModal}
