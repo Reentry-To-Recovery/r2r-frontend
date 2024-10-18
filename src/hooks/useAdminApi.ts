@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
-import { adminFetchCourseSections } from "../api/CourseSections";
+import { adminFetchCourseSections, adminOrderCourseSections } from "../api/CourseSections";
 
 const authorizationParams = {
     scope: "admin"
@@ -61,12 +61,30 @@ export const useAdminApi = () => {
         return await adminFetchCourseSections(token, courseId);
     }, [getAccessTokenSilently]);
 
+    const orderCourseSections = useCallback(async (courseId: string, payload: string[]) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminOrderCourseSections(token, courseId, payload);
+    }, [getAccessTokenSilently]);
+
+    const fetchCourseSection = useCallback(async (courseId: string, sectionId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminFetchCourseSection(token, courseId, sectionId);
+    }, [getAccessTokenSilently]);
+
     return {
         fetchCourses,
         addCourse,
         editCourse,
         fetchCourse,
         deleteCourse,
-        fetchCourseSections
+        fetchCourseSections,
+        orderCourseSections,
+        fetchCourseSection
     };
 }

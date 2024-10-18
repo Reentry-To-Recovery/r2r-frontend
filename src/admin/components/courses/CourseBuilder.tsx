@@ -11,7 +11,7 @@ interface CourseBuilderProps {
 const CourseBuilder = (props: CourseBuilderProps) => {
     const { courseId } = props;
     const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
-    const { fetchCourseSections } = useAdminApi();
+    const { fetchCourseSections, orderCourseSections } = useAdminApi();
 
     useEffect(() => {
         const fetchSections = async () => {
@@ -27,13 +27,22 @@ const CourseBuilder = (props: CourseBuilderProps) => {
         fetchSections();
     }, [courseId, fetchCourseSections]);
 
-    const handleExpandItem = (item: CourseSection) => {
+    const handleExpandItem = async (item: CourseSection) => {
 
+    }
+
+    const handleReorder = async (data: CourseSection[]) => {
+        try {
+            const orderedIds = data.map(cs => cs.id);
+            await orderCourseSections(courseId, orderedIds);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
         <Collapsible title="Course Builder">
-            <OrderableList data={courseSections} onExpandItem={handleExpandItem} />
+            <OrderableList data={courseSections} onExpandItem={handleExpandItem} onReorder={handleReorder} />
         </Collapsible>
     );
 }

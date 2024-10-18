@@ -8,3 +8,7 @@ export interface CourseSection {
 export interface FetchCourseSectionsResponse {
     sections: CourseSection[]
 }
+
+export interface OrderCourseSectionsPayload {
+    orderedSectionIds: string[]
+}
