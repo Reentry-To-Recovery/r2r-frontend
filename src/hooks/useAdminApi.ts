@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
-import { adminFetchCourseSections, adminOrderCourseSections } from "../api/CourseSections";
+import { adminFetchCourseSections, adminOrderCourseSections, adminFetchCourseSection } from "../api/CourseSections";
 
 const authorizationParams = {
     scope: "admin"

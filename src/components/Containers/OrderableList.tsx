@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import {
     DndContext,
     closestCenter,
@@ -18,14 +18,14 @@ import SortableItem, { Sortable } from './SortableItem';
 
 interface OrderableListProps<TData extends Sortable> {
     data: TData[]
-    onExpandItem?: (item: TData) => void
     onEdit?: (item: TData) => void
     onDelete?: (item: TData) => void
     onReorder?: (orderedItems: TData[]) => void
+    renderExpandedItem?: (item: TData) => ReactNode
 }
 
 const OrderableList = <TData extends Sortable>(props: OrderableListProps<TData>) => {
-    const { data, onExpandItem, onEdit, onDelete, onReorder } = props;
+    const { data, onEdit, onDelete, onReorder, renderExpandedItem } = props;
     const [items, setItems] = useState<TData[]>(data);
 
     const sensors = useSensors(
@@ -53,6 +53,10 @@ const OrderableList = <TData extends Sortable>(props: OrderableListProps<TData>)
         }
     };
 
+    useEffect(() => {
+        setItems(data);
+    }, [data])
+
     return (
         <DndContext
             sensors={sensors}
@@ -65,10 +69,10 @@ const OrderableList = <TData extends Sortable>(props: OrderableListProps<TData>)
                         <SortableItem
                             key={item.id}
                             item={item}
-                            onExpandItem={() => { if (onExpandItem) { onExpandItem(item); } }}
                             onEdit={() => { }}
                             onDelete={() => { }}
                         >
+                            {renderExpandedItem && renderExpandedItem(item)}
                         </SortableItem>
                     ))}
                 </ul>

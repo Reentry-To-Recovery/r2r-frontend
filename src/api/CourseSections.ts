@@ -1,4 +1,4 @@
-import { FetchCourseSectionsResponse, OrderCourseSectionsPayload } from "../types/courseSection";
+import { FetchCourseSectionsResponse, OrderCourseSectionsPayload, CourseSection } from "../types/courseSection";
 import { ApiPayload } from "../types/api";
 import axios from "axios";
 

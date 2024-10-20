@@ -3,6 +3,7 @@ import OrderableList from "../../../components/Containers/OrderableList";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { CourseSection } from "../../../types/courseSection";
 import { useState, useEffect } from "react";
+import CourseSectionBuilder from "./CourseSectionBuilder";
 
 interface CourseBuilderProps {
     courseId: string
@@ -27,10 +28,6 @@ const CourseBuilder = (props: CourseBuilderProps) => {
         fetchSections();
     }, [courseId, fetchCourseSections]);
 
-    const handleExpandItem = async (item: CourseSection) => {
-
-    }
-
     const handleReorder = async (data: CourseSection[]) => {
         try {
             const orderedIds = data.map(cs => cs.id);
@@ -42,7 +39,11 @@ const CourseBuilder = (props: CourseBuilderProps) => {
 
     return (
         <Collapsible title="Course Builder">
-            <OrderableList data={courseSections} onExpandItem={handleExpandItem} onReorder={handleReorder} />
+            <OrderableList
+                data={courseSections}
+                onReorder={handleReorder}
+                renderExpandedItem={(item) => <CourseSectionBuilder courseId={item.courseId} sectionId={item.id} />}
+            />
         </Collapsible>
     );
 }
