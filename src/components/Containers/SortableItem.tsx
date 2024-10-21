@@ -34,8 +34,7 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
         transform: CSS.Transform.toString(transform),
         transition,
         opacity: isDragging ? 0.5 : 1,
-        ...styles.listItem,
-        marginBottom: isOpen ? "0px" : "8px"
+        ...styles.listItem
     };
 
     // Handle the mouse down event
@@ -65,19 +64,21 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleClick}
             >
-                <span style={styles.handle}>
-                    <FaBars />
-                </span>
-                <div style={styles.header}>
-                    <span>{item.title}</span>
-                    <div style={styles.actions}>
-                        {onEdit && <span style={styles.action}><FaPenToSquare /></span>}
-                        {onDelete && <span style={styles.action}><FaRegTrashCan /></span>}
-                        {children && <span style={styles.arrow}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>}
+                <div style={styles.nonexpandedItem}>
+                    <span style={styles.handle}>
+                        <FaBars />
+                    </span>
+                    <div style={styles.header}>
+                        <span>{item.title}</span>
+                        <div style={styles.actions}>
+                            {onEdit && <span style={styles.action}><FaPenToSquare /></span>}
+                            {onDelete && <span style={styles.action}><FaRegTrashCan /></span>}
+                            {children && <span style={styles.arrow}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>}
+                        </div>
                     </div>
                 </div>
+                {isOpen && <div style={styles.expandedItem}>{children}</div>}
             </li>
-            {isOpen && <div style={styles.expandedItem}>{children}</div>}
         </div>
     );
 };
@@ -86,11 +87,11 @@ const styles = {
     listItem: {
         display: "flex",
         alignItems: "center",
-        padding: "16px",
-        backgroundColor: "#f0f0f0",
+        flexDirection: "column" as "column",
         borderRadius: "4px",
         border: "1px solid #ccc",
         cursor: "grab",
+        marginBottom: "8px"
     },
     handle: {
         marginRight: "8px",
@@ -116,13 +117,19 @@ const styles = {
         display: "flex",
         alignItems: "center"
     },
+    nonexpandedItem: {
+        display: "flex",
+        alignItems: "center",
+        padding: "16px",
+        backgroundColor: "#f0f0f0",
+        width: "100%",
+        borderRadius: "4px"
+    },
     expandedItem: {
-        padding: "8px",
+        padding: "16px",
         backgroundColor: "#f9f9f9",
         width: "100%",
-        marginBottom: "8px",
-        borderRadius: "4px",
-        border: "1px solid #ccc",
+        borderRadius: "0px 0px 4px 4px"
     }
 };
 

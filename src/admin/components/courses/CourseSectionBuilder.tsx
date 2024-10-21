@@ -29,15 +29,20 @@ const CourseSectionBuilder = (props: CourseSectionBuilderProps) => {
         fetchSection();
     }, [courseId, fetchCourseSection, sectionId]);
 
-    const sortableSectionContent: Sortable[] = courseSection?.content.map(c => {
+    const sortableSectionContent: Sortable[] = [];
+    let lessonCounter = 1;
+    let quizCounter = 1;
+
+    courseSection?.content.forEach(c => {
         if (c.lesson) {
-            return { id: c.lesson.id, title: c.lesson.title };
+            sortableSectionContent.push({ id: c.lesson.id, title: `Lesson ${lessonCounter}: ${c.lesson.title}` });
+            lessonCounter++;
         } else if (c.quiz) {
-            return { id: c.quiz.id, title: c.quiz.title };
-        } else {
-            return { id: "", title: "" };
+            sortableSectionContent.push({ id: c.quiz.id, title: `Quiz ${quizCounter}: ${c.quiz.title}` });
+            quizCounter++;
         }
-    }) ?? [];
+    });
+
 
     return (
         <div>
