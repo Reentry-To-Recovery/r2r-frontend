@@ -77,7 +77,7 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
                     </div>
                 </div>
             </li>
-            {isOpen && <div style={{ padding: "8px", backgroundColor: "#f9f9f9" }}>{children}</div>}
+            {isOpen && <div style={styles.expandedItem}>{children}</div>}
         </div>
     );
 };
@@ -115,6 +115,14 @@ const styles = {
     actions: {
         display: "flex",
         alignItems: "center"
+    },
+    expandedItem: {
+        padding: "8px",
+        backgroundColor: "#f9f9f9",
+        width: "100%",
+        marginBottom: "8px",
+        borderRadius: "4px",
+        border: "1px solid #ccc",
     }
 };
 

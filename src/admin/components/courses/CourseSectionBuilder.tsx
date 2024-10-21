@@ -3,6 +3,7 @@ import OrderableList from "../../../components/Containers/OrderableList";
 import { useAdminApi } from "../../../hooks/useAdminApi";
 import { CourseSection } from "../../../types/courseSection";
 import { Sortable } from "../../../components/Containers/SortableItem";
+import AddButton from "../../../components/Buttons/AddButton";
 
 interface CourseSectionBuilderProps {
     courseId: string
@@ -39,8 +40,14 @@ const CourseSectionBuilder = (props: CourseSectionBuilderProps) => {
     }) ?? [];
 
     return (
-        <OrderableList data={sortableSectionContent} />
-    )
+        <div>
+            <OrderableList data={sortableSectionContent} />
+            <div className="flex" style={{ columnGap: "12px", marginTop: sortableSectionContent.length > 0 ? "16px" : "8px" }}>
+                <AddButton label={"Lesson"} onClick={() => { }} />
+                <AddButton label={"Quiz"} onClick={() => { }} />
+            </div>
+        </div>
+    );
 }
 
 export default CourseSectionBuilder;
