@@ -151,14 +151,21 @@ const EditCourse = () => {
                 onChange={handleToggleActive}
                 disabled={isLoading}
             />
-            <CourseBuilder courseId={id ?? ""} />
             <FormButtons
                 onSubmitClick={submitCourse}
                 onCancelClick={() => { navigate("/courses") }}
                 submitDisabled={!isFormValid || isSubmitting || isLoading}
             />
+            <div style={styles.borderLine}></div>
+            <CourseBuilder courseId={id ?? ""} />
         </form>
     </div>);
+}
+
+const styles = {
+    borderLine: {
+        borderBottom: "1px solid #ccc"
+    }
 }
 
 export default EditCourse;
