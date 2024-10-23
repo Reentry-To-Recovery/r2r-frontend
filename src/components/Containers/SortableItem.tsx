@@ -8,7 +8,7 @@ import { useState } from 'react';
 interface SortableItemProps<TData extends Sortable> {
     item: TData
     onEdit?: (item: TData) => void
-    onDelete?: () => void
+    onDelete?: (item: TData) => void
     children?: ReactNode
 }
 
@@ -35,12 +35,10 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
         ...styles.listItem
     };
 
-    // Handle the mouse down event
     const handleMouseDown = () => {
         setIsClick(true);
     };
 
-    // Handle mouse move to detect drag
     const handleMouseMove = () => {
         setIsClick(false);
     };
@@ -68,7 +66,7 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
 
     const handleDelete = (e: React.MouseEvent) => {
         e.stopPropagation();
-        onDelete && onDelete();
+        onDelete && onDelete(item);
     };
 
     return (

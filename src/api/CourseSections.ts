@@ -88,3 +88,16 @@ export const adminEditCourseSection = async (token: string, courseId: string, se
 
     return response.data;
 }
+
+export const adminDeleteCourseSection = async (token: string, courseId: string, sectionId: string) => {
+    const response = await axios.delete(
+        `${apiUrl}/admin/courses/${courseId}/sections/${sectionId}`,
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    );
+
+    return response.data;
+}

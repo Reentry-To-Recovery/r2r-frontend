@@ -7,6 +7,8 @@ import CourseSectionBuilder from "./CourseSectionBuilder";
 import AddButton from "../../../components/Buttons/AddButton";
 import AddCourseSectionModal from "../modals/AddCourseSectionModal";
 import EditCourseSectionModal from "../modals/EditCourseSectionModal";
+import ConfirmationModal from "../modals/ConfirmationModal";
+import toast from "react-hot-toast";
 
 interface CourseBuilderProps {
     courseId: string
@@ -14,10 +16,11 @@ interface CourseBuilderProps {
 
 const CourseBuilder = (props: CourseBuilderProps) => {
     const { courseId } = props;
-    const { fetchCourseSections, orderCourseSections } = useAdminApi();
+    const { fetchCourseSections, orderCourseSections, deleteCourseSection } = useAdminApi();
     const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
     const [showAddTopicModal, setShowAddTopicModal] = useState<boolean>(false);
     const [showEditTopicModal, setShowEditTopicModal] = useState<boolean>(false);
+    const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState<boolean>(false);
     const [selectedSection, setSelectedSection] = useState<CourseSection | null>(null);
 
     useEffect(() => {
@@ -58,6 +61,26 @@ const CourseBuilder = (props: CourseBuilderProps) => {
         setShowEditTopicModal(true);
     }
 
+    const handleDelete = (item: CourseSection) => {
+        setSelectedSection(item);
+        setShowDeleteConfirmationModal(true);
+    }
+
+    const onDeleteConfirmation = async () => {
+        try {
+            await deleteCourseSection(selectedSection?.courseId ?? "", selectedSection?.id ?? "");
+
+            setShowDeleteConfirmationModal(false);
+            toast.success("Successfully delete topic");
+
+            await handleRefresh();
+        } catch (e: any) {
+            console.log(e);
+            const errorMessage = e.response?.data?.errorMessage;
+            toast.error(errorMessage ?? "Error deleting topic");
+        }
+    }
+
     return (
         <>
             <Collapsible title="Course Builder">
@@ -65,6 +88,7 @@ const CourseBuilder = (props: CourseBuilderProps) => {
                     data={courseSections}
                     onReorder={handleReorder}
                     onEdit={handleEdit}
+                    onDelete={handleDelete}
                     renderExpandedItem={(item) => <CourseSectionBuilder courseId={item.courseId} sectionId={item.id} />}
                 />
                 <AddButton label="Add new topic" fillStyle="solid" onClick={() => { setShowAddTopicModal(true); }} />
@@ -88,6 +112,19 @@ const CourseBuilder = (props: CourseBuilderProps) => {
                     setShowModal={setShowEditTopicModal}
                     refreshCourseSections={handleRefresh}
                 />
+            }
+            {
+                showDeleteConfirmationModal && selectedSection &&
+                <ConfirmationModal
+                    showModal={showDeleteConfirmationModal}
+                    onConfirm={onDeleteConfirmation}
+                    onCancel={() => { setShowDeleteConfirmationModal(false); }}
+                >
+                    <span>
+                        <span>Are you sure you would like to delete</span>{' '}
+                        <span style={{ fontWeight: "bold" }}>{selectedSection.title}</span>{"?"}
+                    </span>
+                </ConfirmationModal>
             }
         </>
     );

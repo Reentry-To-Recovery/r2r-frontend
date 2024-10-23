@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
-import { adminFetchCourseSections, adminOrderCourseSections, adminFetchCourseSection, adminCreateCourseSection, adminEditCourseSection } from "../api/CourseSections";
+import { adminFetchCourseSections, adminOrderCourseSections, adminFetchCourseSection, adminCreateCourseSection, adminEditCourseSection, adminDeleteCourseSection } from "../api/CourseSections";
 import { AddEditCourseSectionPayload } from "../types/courseSection";
 
 const authorizationParams = {
@@ -94,6 +94,14 @@ export const useAdminApi = () => {
         return await adminEditCourseSection(token, courseId, sectionId, payload);
     }, [getAccessTokenSilently]);
 
+    const deleteCourseSection = useCallback(async (courseId: string, sectionId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminDeleteCourseSection(token, courseId, sectionId);
+    }, [getAccessTokenSilently]);
+
     return {
         fetchCourses,
         addCourse,
@@ -104,6 +112,7 @@ export const useAdminApi = () => {
         orderCourseSections,
         fetchCourseSection,
         addCourseSection,
-        editCourseSection
+        editCourseSection,
+        deleteCourseSection
     };
 }
