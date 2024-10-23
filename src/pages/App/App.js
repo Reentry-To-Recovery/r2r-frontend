@@ -82,7 +82,14 @@ export default function App() {
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />
-      <Toaster />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            zIndex: 9999,
+          },
+        }}
+      />
     </main >
   );
 }
