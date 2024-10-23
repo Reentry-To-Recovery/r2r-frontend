@@ -4,6 +4,8 @@ import { useCallback } from "react";
 import { SearchCoursesFilters, SearchCoursesSort, AddEditCoursePayload, SearchCoursesResponseData, Course } from "../types/Courses";
 import { SearchPayload, SearchResponseMeta } from "../types/search";
 import { ApiPayload } from "../types/api";
+import { adminFetchCourseSections, adminOrderCourseSections, adminFetchCourseSection, adminCreateCourseSection, adminEditCourseSection, adminDeleteCourseSection } from "../api/CourseSections";
+import { AddEditCourseSectionPayload } from "../types/courseSection";
 
 const authorizationParams = {
     scope: "admin"
@@ -52,11 +54,65 @@ export const useAdminApi = () => {
         return await adminDeleteCourse(token, courseId);
     }, [getAccessTokenSilently]);
 
+    const fetchCourseSections = useCallback(async (courseId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminFetchCourseSections(token, courseId);
+    }, [getAccessTokenSilently]);
+
+    const orderCourseSections = useCallback(async (courseId: string, payload: string[]) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminOrderCourseSections(token, courseId, payload);
+    }, [getAccessTokenSilently]);
+
+    const fetchCourseSection = useCallback(async (courseId: string, sectionId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminFetchCourseSection(token, courseId, sectionId);
+    }, [getAccessTokenSilently]);
+
+    const addCourseSection = useCallback(async (courseId: string, payload: AddEditCourseSectionPayload) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminCreateCourseSection(token, courseId, payload);
+    }, [getAccessTokenSilently]);
+
+    const editCourseSection = useCallback(async (courseId: string, sectionId: string, payload: AddEditCourseSectionPayload) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminEditCourseSection(token, courseId, sectionId, payload);
+    }, [getAccessTokenSilently]);
+
+    const deleteCourseSection = useCallback(async (courseId: string, sectionId: string) => {
+        const token = await getAccessTokenSilently({
+            authorizationParams: authorizationParams
+        });
+
+        return await adminDeleteCourseSection(token, courseId, sectionId);
+    }, [getAccessTokenSilently]);
+
     return {
         fetchCourses,
         addCourse,
         editCourse,
         fetchCourse,
-        deleteCourse
+        deleteCourse,
+        fetchCourseSections,
+        orderCourseSections,
+        fetchCourseSection,
+        addCourseSection,
+        editCourseSection,
+        deleteCourseSection
     };
 }

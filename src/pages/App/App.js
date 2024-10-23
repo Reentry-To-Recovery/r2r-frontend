@@ -14,7 +14,6 @@ import Certificate from "../Certificate/Certificate";
 import Footer from "../../components/Footer";
 import Dashboard from "../Dashboard/Dashboard";
 import Profile from "../../components/Auth/Profile";
-import CourseList from "../../admin/pages/courses/CourseList";
 import AddCourse from "../../admin/pages/courses/AddCourse";
 import EditCourse from "../../admin/pages/courses/EditCourse";
 import { Toaster } from "react-hot-toast";
@@ -83,7 +82,14 @@ export default function App() {
       </Routes>
 
       <Footer HashLink={HashLink} setShowModal={setShowModal} />
-      <Toaster />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            zIndex: 9999,
+          },
+        }}
+      />
     </main >
   );
 }

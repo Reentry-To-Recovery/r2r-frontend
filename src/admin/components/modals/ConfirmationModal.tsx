@@ -14,7 +14,7 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
     return (
         showModal ? createPortal(
             <div className="modal-overlay">
-                <div className="modal">
+                <div className="modal" style={confirmationModalStyle}>
                     {children}
                     <div className="flex justify" style={{ columnGap: "8px" }}>
                         <button className="solid-button" style={{ width: "84px" }} onClick={onConfirm}>Yes</button>
@@ -31,6 +31,12 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
             document.body
         ) : <></>
     )
+}
+
+const confirmationModalStyle = {
+    display: "flex",
+    flexDirection: "column" as "column",
+    rowGap: "16px"
 }
 
 export default ConfirmationModal;

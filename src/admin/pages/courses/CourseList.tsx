@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";
 import { SearchOrder, SearchPayload } from "../../../types/search";
 import Table from "../../components/Table";
-import AdminBreadcrumb from "../../components/AdminBreadcrumb";
 import TableActionCell from "../../components/TableActionCell";
-import ConfirmationModal from "../../components/ConfirmationModal";
+import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import toast from "react-hot-toast";
 import DebounceSearchBar from "../../components/DebounceSearchBar";
+import { FaPenToSquare, FaRegTrashCan } from "react-icons/fa6";
 
 const columnHelper = createColumnHelper<Course>();
 
@@ -75,17 +75,17 @@ export default function CourseList() {
             id: "actions",
             header: "Actions",
             cell: context => <TableActionCell>
-                <div className="flex" style={{ columnGap: "8px" }}>
-                    <button className="solid-button" onClick={() => { navigate(`/courses/${context.cell.row.original.id}/edit`) }}>Edit</button>
-                    <button
-                        className="solid-button"
+                <div className="flex-center" style={{ columnGap: "8px" }}>
+                    <span style={styles.editIcon} onClick={() => { navigate(`/courses/${context.cell.row.original.id}/edit`) }}><FaPenToSquare /></span>
+                    <span
+                        style={styles.editIcon}
                         onClick={() => {
                             setShowDeleteModal(true);
                             setCourseToDelete(context.cell.row.original);
                         }}
                     >
-                        Delete
-                    </button>
+                        <FaRegTrashCan />
+                    </span>
                 </div>
             </TableActionCell>
         })
@@ -192,4 +192,11 @@ export default function CourseList() {
             </ConfirmationModal>
         </div>
     );
+}
+
+const styles = {
+    editIcon: {
+        fontSize: "24px",
+        cursor: "pointer"
+    }
 }

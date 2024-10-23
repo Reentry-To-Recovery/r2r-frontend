@@ -9,6 +9,7 @@ import { AddEditCoursePayload, Course } from "../../../types/Courses";
 import toast from "react-hot-toast";
 import { isValidUrl } from "../../../util/urlHelpers";
 import FormButtons from "../../components/FormButtons";
+import CourseBuilder from "../../components/builders/CourseBuilder";
 
 const EditCourse = () => {
     const { id } = useParams();
@@ -155,8 +156,16 @@ const EditCourse = () => {
                 onCancelClick={() => { navigate("/courses") }}
                 submitDisabled={!isFormValid || isSubmitting || isLoading}
             />
+            <div style={styles.borderLine}></div>
+            <CourseBuilder courseId={id ?? ""} />
         </form>
     </div>);
+}
+
+const styles = {
+    borderLine: {
+        borderBottom: "1px solid #ccc"
+    }
 }
 
 export default EditCourse;
