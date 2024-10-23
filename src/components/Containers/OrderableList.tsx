@@ -69,7 +69,7 @@ const OrderableList = <TData extends Sortable>(props: OrderableListProps<TData>)
                         <SortableItem
                             key={item.id}
                             item={item}
-                            onEdit={() => { }}
+                            onEdit={onEdit}
                             onDelete={() => { }}
                         >
                             {renderExpandedItem && renderExpandedItem(item)}

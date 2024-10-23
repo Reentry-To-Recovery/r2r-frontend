@@ -9,7 +9,7 @@ import { AddEditCoursePayload, Course } from "../../../types/Courses";
 import toast from "react-hot-toast";
 import { isValidUrl } from "../../../util/urlHelpers";
 import FormButtons from "../../components/FormButtons";
-import CourseBuilder from "../../components/courses/CourseBuilder";
+import CourseBuilder from "../../components/builders/CourseBuilder";
 
 const EditCourse = () => {
     const { id } = useParams();

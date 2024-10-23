@@ -1,6 +1,4 @@
-import {
-    useSortable
-} from '@dnd-kit/sortable';
+import { useSortable } from '@dnd-kit/sortable';
 import { ReactNode } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { FaPenToSquare, FaAngleDown, FaAngleUp, FaRegTrashCan } from 'react-icons/fa6';
@@ -9,7 +7,7 @@ import { useState } from 'react';
 
 interface SortableItemProps<TData extends Sortable> {
     item: TData
-    onEdit?: () => void
+    onEdit?: (item: TData) => void
     onDelete?: () => void
     children?: ReactNode
 }
@@ -47,10 +45,30 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
         setIsClick(false);
     };
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent) => {
         if (isClick) {
+            const target = e.target as HTMLElement;
+
+            if (target.closest(".edit-icon")) {
+                handleEdit(e);
+                return;
+            } else if (target.closest(".delete-icon")) {
+                handleDelete(e);
+                return;
+            }
+
             toggleCollapse();
         }
+    };
+
+    const handleEdit = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onEdit && onEdit(item);
+    };
+
+    const handleDelete = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onDelete && onDelete();
     };
 
     return (
@@ -71,8 +89,8 @@ const SortableItem = <TData extends Sortable>(props: SortableItemProps<TData>) =
                     <div style={styles.header}>
                         <span>{item.title}</span>
                         <div style={styles.actions}>
-                            {onEdit && <span style={styles.action}><FaPenToSquare /></span>}
-                            {onDelete && <span style={styles.action}><FaRegTrashCan /></span>}
+                            {onEdit && <span className="edit-icon" style={styles.action}><FaPenToSquare /></span>}
+                            {onDelete && <span className="delete-icon" style={styles.action}><FaRegTrashCan /></span>}
                             {children && <span style={styles.arrow}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>}
                         </div>
                     </div>

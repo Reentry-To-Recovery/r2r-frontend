@@ -48,8 +48,8 @@ const CourseSectionBuilder = (props: CourseSectionBuilderProps) => {
         <div>
             <OrderableList data={sortableSectionContent} />
             <div className="flex" style={{ columnGap: "12px", marginTop: sortableSectionContent.length > 0 ? "16px" : "8px" }}>
-                <AddButton label={"Lesson"} onClick={() => { }} />
-                <AddButton label={"Quiz"} onClick={() => { }} />
+                <AddButton label={"Lesson"} fillStyle="transparent" onClick={() => { }} />
+                <AddButton label={"Quiz"} fillStyle="transparent" onClick={() => { }} />
             </div>
         </div>
     );

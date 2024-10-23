@@ -24,14 +24,18 @@ export interface CourseSectionContent {
     quiz: Quiz | null
 }
 
-export interface Lesson extends Sortable {
+export interface Lesson {
     id: string
     title: string
     description: string
     contentUrl: string
 }
 
-export interface Quiz extends Sortable {
+export interface Quiz {
     id: string
+    title: string
+}
+
+export interface AddEditCourseSectionPayload {
     title: string
 }

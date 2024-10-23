@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 import AddNewButton from "../../../components/Buttons/AddNewButton";
 import { SearchOrder, SearchPayload } from "../../../types/search";
 import Table from "../../components/Table";
-import AdminBreadcrumb from "../../components/AdminBreadcrumb";
 import TableActionCell from "../../components/TableActionCell";
-import ConfirmationModal from "../../components/ConfirmationModal";
+import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import toast from "react-hot-toast";
 import DebounceSearchBar from "../../components/DebounceSearchBar";
 
